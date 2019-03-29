@@ -46,3 +46,12 @@ flycheck_*.el
 
 # network security
 /network-security.data
+
+# auto-complete
+ac-comphist.dat
+
+# magit
+transient/
+
+# projectile
+projectile-bookmarks.eld

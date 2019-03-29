@@ -17,10 +17,10 @@
  ;; If there is more than one, they won't work right.
  )
 
-(defun init ()
-  "Loads ~/.emacs.d/init.el"
+(defun reload ()
+  "Reloads user init file"
   (interactive)
-  (load-file "~/.emacs.d/init.el"))
+  (load-file user-init-file))
 
 ;; Package Archives
 (require 'package)
@@ -42,9 +42,6 @@
   :if (memq window-system '(mac ns x))
   :ensure t
   :config (exec-path-from-shell-initialize))
-
-(use-package solarized
-  :config (load-theme 'solarized-dark))
 
 ;; https://magit.vc/manual/magit/
 (use-package magit
@@ -70,6 +67,9 @@
       (web-mode-set-content-type "jsx")
     (message "content-type set to %s" web-mode-content-type)))
 
+(use-package solarized
+  :config (load-theme 'solarized-dark))
+
 ;; http://web-mode.org/
 (use-package web-mode
   :init
@@ -84,7 +84,7 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "SF Mono-14")
+(set-face-attribute 'default nil :font "SF Mono-24")
 
 ;; Line height
 (setq-default line-spacing 0.2)
@@ -114,7 +114,7 @@
   (global-display-line-numbers-mode)
   (setq-default display-line-numbers-type 'relative))
 
-;; Column Number
+;; Column number
 (column-number-mode)
 
 ;; Highlight parenthesis
