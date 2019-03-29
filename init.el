@@ -5,7 +5,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("84890723510d225c45aaff941a7e201606a48b973f0121cb9bcb0b9399be8cba" default))))
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+ '(package-selected-packages
+   (quote
+    (solarized-theme web-mode use-package projectile magit exec-path-from-shell autothemer auto-complete))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -13,6 +16,11 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(defun init ()
+  "Loads ~/.emacs.d/init.el"
+  (interactive)
+  (load-file "~/.emacs.d/init.el"))
 
 ;; Package Archives
 (require 'package)
@@ -27,7 +35,7 @@
 
 ;; https://github.com/auto-complete/auto-complete
 (use-package auto-complete
-  :config (auto-complete-mode))
+  :init (setq-default auto-complete-mode t))
 
 ;; https://github.com/purcell/exec-path-from-shell
 (use-package exec-path-from-shell
@@ -35,10 +43,13 @@
   :ensure t
   :config (exec-path-from-shell-initialize))
 
+(use-package solarized
+  :config (load-theme 'solarized-dark))
+
 ;; https://magit.vc/manual/magit/
 (use-package magit
   :bind ("C-x g" . magit-status)
-  :config (setq magit-refresh-status-buffer nil))
+  :init (setq magit-refresh-status-buffer nil))
 
 ;; https://docs.projectile.mx/
 (use-package projectile
@@ -46,25 +57,34 @@
          ("C-c p" . projectile-command-map))
   :config (projectile-mode +1))
 
-;; https://github.com/felipeochoa/rjsx-mode
-(use-package rjsx-mode
-  :init (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
-        (setq js-indent-level 2))
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
+  (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil))
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-markup-indent-offset 2)
+  (if (equal web-mode-content-type "javascript")
+      (web-mode-set-content-type "jsx")
+    (message "content-type set to %s" web-mode-content-type)))
 
-(use-package zenburn-theme
-  :init (load-theme 'zenburn))
+;; http://web-mode.org/
+(use-package web-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
+  (add-hook 'web-mode-hook 'my-web-mode-hook))
 
-(defun init ()
-  "Loads ~/.emacs.d/init.el"
-  (interactive)
-  (load-file "~/.emacs.d/init.el"))
+;; Disables global eldoc mode
+(setq global-eldoc-mode nil)
 
 ;; Command key as meta
 (setq mac-command-modifier 'meta
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "Ubuntu Mono-14")
+(set-face-attribute 'default nil :font "SF Mono-14")
 
 ;; Line height
 (setq-default line-spacing 0.2)
@@ -106,3 +126,8 @@
 
 ;; Deletes trailing whitespace on save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Case Insensitive Completion
+(setq completion-ignore-case t
+      read-buffer-completion-ignore-case t
+      read-file-name-completion-ignore-case t)
