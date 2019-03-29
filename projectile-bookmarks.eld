@@ -1,1 +1,0 @@
-("~/.emacs.d/" "~/Developer/ibm/graphql-data-source-softlayerintegration/" "~/Developer/ibm/Gen1.VSI/")
