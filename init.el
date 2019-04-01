@@ -3,12 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(package-selected-packages
    (quote
-    (solarized-theme web-mode use-package projectile magit exec-path-from-shell autothemer auto-complete))))
+    (zenburn-theme add-node-modules-path flycheck web-mode use-package projectile magit exec-path-from-shell autothemer auto-complete))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -18,15 +15,17 @@
  )
 
 (defun reload ()
-  "Reloads user init file"
+  "Reloads user init file."
   (interactive)
   (load-file user-init-file))
 
 ;; Package Archives
 (require 'package)
-(add-to-list 'package-archives
-             ;; Milkypostman’s Emacs Lisp Package Archive
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(add-to-list
+ 'package-archives
+ ;; Milkypostman’s Emacs Lisp Package Archive
+ '("melpa-stable" . "https://stable.melpa.org/packages/")
+ t)
 
 (package-initialize)
 
@@ -35,13 +34,18 @@
 
 ;; https://github.com/auto-complete/auto-complete
 (use-package auto-complete
-  :init (setq-default auto-complete-mode t))
+  :config
+  (ac-config-default)
+  (global-auto-complete-mode t))
 
 ;; https://github.com/purcell/exec-path-from-shell
 (use-package exec-path-from-shell
   :if (memq window-system '(mac ns x))
   :ensure t
   :config (exec-path-from-shell-initialize))
+
+(use-package flycheck
+  :config (flycheck-add-mode 'javascript-eslint 'web-mode))
 
 ;; https://magit.vc/manual/magit/
 (use-package magit
@@ -60,21 +64,23 @@
   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil))
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
-  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2
+        web-mode-markup-indent-offset 2)
   (if (equal web-mode-content-type "javascript")
       (web-mode-set-content-type "jsx")
     (message "content-type set to %s" web-mode-content-type)))
-
-(use-package solarized
-  :config (load-theme 'solarized-dark))
 
 ;; http://web-mode.org/
 (use-package web-mode
   :init
   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
+  (add-hook 'web-mode-hook #'add-node-modules-path)
+  (add-hook 'web-mode-hook 'flycheck-mode)
   (add-hook 'web-mode-hook 'my-web-mode-hook))
+
+(use-package zenburn-theme
+  :config (load-theme 'zenburn))
 
 ;; Disables global eldoc mode
 (setq global-eldoc-mode nil)
@@ -84,7 +90,7 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "SF Mono-24")
+(set-face-attribute 'default nil :font "Ubuntu Mono-24")
 
 ;; Line height
 (setq-default line-spacing 0.2)
@@ -96,7 +102,7 @@
 (set-frame-parameter nil 'fullscreen 'fullboth)
 
 (defun toggle-fullscreen ()
-  "Toggle full screen"
+  "Toggle full screen."
   (interactive)
   (set-frame-parameter
    nil
