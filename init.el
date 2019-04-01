@@ -22,10 +22,8 @@
 ;; Package Archives
 (require 'package)
 (add-to-list
- 'package-archives
- ;; Milkypostman’s Emacs Lisp Package Archive
- '("melpa-stable" . "https://stable.melpa.org/packages/")
- t)
+ ;; Milkypostman's Emacs Lisp Package Archive
+ 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (package-initialize)
 
