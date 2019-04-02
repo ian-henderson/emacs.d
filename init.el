@@ -45,6 +45,7 @@
   :ensure t
   :config (exec-path-from-shell-initialize))
 
+;; https://flycheck.readthedocs.io/en/latest/
 (use-package flycheck
   :config
   (add-hook 'scss-mode-hook 'flycheck-mode)
