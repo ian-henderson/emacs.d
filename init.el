@@ -35,6 +35,8 @@
 (eval-when-compile
   (require 'use-package))
 
+(use-package add-node-modules-path :ensure t)
+
 ;; https://github.com/auto-complete/auto-complete
 (use-package auto-complete
   :config
@@ -78,13 +80,13 @@
               solarized-use-more-italic t))
 
 (defun my-web-mode-hook ()
-  "Hooks for Web mode."
+  "web-mode configuration."
   (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil))
-  (setq web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2
+  (setq web-mode-code-indent-offset 2
+        web-mode-css-indent-offset 2
         web-mode-markup-indent-offset 2)
   (if (equal web-mode-content-type "javascript")
       (web-mode-set-content-type "jsx")
@@ -92,14 +94,15 @@
 
 ;; http://web-mode.org/
 (use-package web-mode
+  :config
+  (add-hook 'web-mode-hook #'add-node-modules-path)
+  (add-hook 'web-mode-hook 'flycheck-mode)
+  (add-hook 'web-mode-hook 'my-web-mode-hook)
   :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
-  (add-hook 'web-mode-hook #'add-node-modules-path)
-  (add-hook 'web-mode-hook 'flycheck-mode)
-  (add-hook 'web-mode-hook 'my-web-mode-hook))
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode)))
 
 ;; Disables global eldoc mode
 (setq global-eldoc-mode nil)
@@ -156,6 +159,3 @@
 (setq completion-ignore-case t
       read-buffer-completion-ignore-case t
       read-file-name-completion-ignore-case t)
-
-;; Balances windows when one is created, deleted, or switches buffers
-(add-hook 'window-configuration-change-hook 'balance-windows)
