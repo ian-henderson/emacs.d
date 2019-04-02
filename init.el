@@ -3,6 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("84890723510d225c45aaff941a7e201606a48b973f0121cb9bcb0b9399be8cba" default)))
  '(package-selected-packages
    (quote
     (zenburn-theme add-node-modules-path flycheck web-mode use-package projectile magit exec-path-from-shell autothemer auto-complete))))
@@ -43,7 +46,10 @@
   :config (exec-path-from-shell-initialize))
 
 (use-package flycheck
-  :config (flycheck-add-mode 'javascript-eslint 'web-mode))
+  :config
+  (add-hook 'scss-mode-hook 'flycheck-mode)
+  (flycheck-add-mode 'sass/scss-sass-lint 'scss-mode)
+  (flycheck-add-mode 'javascript-eslint 'web-mode))
 
 ;; https://magit.vc/manual/magit/
 (use-package magit
@@ -88,10 +94,10 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "Ubuntu Mono-24")
+(set-face-attribute 'default nil :font "Input Mono-24")
 
 ;; Line height
-(setq-default line-spacing 0.2)
+(setq-default line-spacing 0.1)
 
 ;; Scroll bar
 (scroll-bar-mode -1)
