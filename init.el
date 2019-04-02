@@ -5,10 +5,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("84890723510d225c45aaff941a7e201606a48b973f0121cb9bcb0b9399be8cba" default)))
+    ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(package-selected-packages
    (quote
-    (zenburn-theme add-node-modules-path flycheck web-mode use-package projectile magit exec-path-from-shell autothemer auto-complete))))
+    (solarized-theme add-node-modules-path flycheck web-mode use-package projectile magit exec-path-from-shell autothemer auto-complete))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -21,6 +21,8 @@
   "Reloads user init file."
   (interactive)
   (load-file user-init-file))
+
+(global-set-key (kbd "C-c r") 'reload)
 
 ;; Package Archives
 (require 'package)
@@ -37,31 +39,43 @@
 (use-package auto-complete
   :config
   (ac-config-default)
-  (global-auto-complete-mode t))
+  (global-auto-complete-mode t)
+  :ensure t)
 
 ;; https://github.com/purcell/exec-path-from-shell
 (use-package exec-path-from-shell
-  :if (memq window-system '(mac ns x))
+  :config (exec-path-from-shell-initialize)
   :ensure t
-  :config (exec-path-from-shell-initialize))
+  :if (memq window-system '(mac ns x)))
 
 ;; https://flycheck.readthedocs.io/en/latest/
 (use-package flycheck
   :config
   (add-hook 'scss-mode-hook 'flycheck-mode)
   (flycheck-add-mode 'sass/scss-sass-lint 'scss-mode)
-  (flycheck-add-mode 'javascript-eslint 'web-mode))
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  :ensure t)
 
 ;; https://magit.vc/manual/magit/
 (use-package magit
   :bind ("C-x g" . magit-status)
+  :ensure t
   :init (setq magit-refresh-status-buffer nil))
 
 ;; https://docs.projectile.mx/
 (use-package projectile
   :bind (("s-p" . projectile-command-map)
          ("C-c p" . projectile-command-map))
-  :config (projectile-mode +1))
+  :config (projectile-mode +1)
+  :ensure t)
+
+;; https://github.com/bbatsov/solarized-emacs
+(use-package solarized-theme
+  :config (load-theme 'solarized-dark)
+  :ensure t
+  :init (setq solarized-distinct-fringe-background t
+              solarized-high-contrast-mode-line t
+              solarized-use-more-italic t))
 
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
@@ -78,14 +92,14 @@
 
 ;; http://web-mode.org/
 (use-package web-mode
+  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
   (add-hook 'web-mode-hook #'add-node-modules-path)
   (add-hook 'web-mode-hook 'flycheck-mode)
   (add-hook 'web-mode-hook 'my-web-mode-hook))
-
-(use-package zenburn-theme
-  :config (load-theme 'zenburn))
 
 ;; Disables global eldoc mode
 (setq global-eldoc-mode nil)
@@ -95,10 +109,10 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "Input Mono-24")
+(set-face-attribute 'default nil :font "Operator Mono-14")
 
 ;; Line height
-(setq-default line-spacing 0.1)
+(setq-default line-spacing 0.2)
 
 ;; Scroll bar
 (scroll-bar-mode -1)
@@ -142,3 +156,6 @@
 (setq completion-ignore-case t
       read-buffer-completion-ignore-case t
       read-file-name-completion-ignore-case t)
+
+;; Balances windows when one is created, deleted, or switches buffers
+(add-hook 'window-configuration-change-hook 'balance-windows)
