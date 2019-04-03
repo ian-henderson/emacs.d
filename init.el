@@ -26,8 +26,9 @@
 
 ;; Package Archives
 (require 'package)
-(add-to-list
+
  ;; Milkypostman's Emacs Lisp Package Archive
+(add-to-list
  'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 (package-initialize)
@@ -124,16 +125,10 @@
 ;; Scroll bar
 (scroll-bar-mode -1)
 
-;; Full screen
-(set-frame-parameter nil 'fullscreen 'fullboth)
-
-(defun toggle-fullscreen ()
-  "Toggle full screen."
-  (interactive)
-  (set-frame-parameter
-   nil
-   'fullscreen
-   (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
+;; Full-screen and maximize key bindings and startup maximized
+(global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
+(global-set-key (kbd "C-c m") 'toggle-frame-maximized)
+(toggle-frame-maximized)
 
 ;; Turns off bell
 (setq ring-bell-function 'ignore)
