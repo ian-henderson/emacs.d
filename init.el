@@ -32,9 +32,10 @@
 
 (package-initialize)
 
-(eval-when-compile
-  (require 'use-package))
+;; https://github.com/jwiegley/use-package
+(eval-when-compile (require 'use-package))
 
+;; https://github.com/codesuki/add-node-modules-path
 (use-package add-node-modules-path :ensure t)
 
 ;; https://github.com/auto-complete/auto-complete
