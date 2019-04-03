@@ -8,7 +8,7 @@
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(package-selected-packages
    (quote
-    (solarized-theme add-node-modules-path flycheck web-mode use-package projectile magit exec-path-from-shell autothemer auto-complete))))
+    (evil solarized-theme add-node-modules-path flycheck web-mode use-package projectile magit exec-path-from-shell autothemer auto-complete))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -44,6 +44,9 @@
   (global-auto-complete-mode t)
   :ensure t)
 
+;; https://github.com/emacs-evil/evil
+(use-package evil :config (evil-mode 1) :ensure t)
+
 ;; https://github.com/purcell/exec-path-from-shell
 (use-package exec-path-from-shell
   :config (exec-path-from-shell-initialize)
@@ -77,6 +80,7 @@
   :ensure t
   :init (setq solarized-distinct-fringe-background t
               solarized-high-contrast-mode-line t
+              solarized-use-less-bold t
               solarized-use-more-italic t))
 
 (defun my-web-mode-hook ()
@@ -112,7 +116,7 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "Operator Mono-14")
+(set-face-attribute 'default nil :font "IBM Plex Mono-14")
 
 ;; Line height
 (setq-default line-spacing 0.2)
@@ -159,3 +163,6 @@
 (setq completion-ignore-case t
       read-buffer-completion-ignore-case t
       read-file-name-completion-ignore-case t)
+
+;; Open a url in browser
+(global-set-key (kbd "C-c u") 'browse-url-at-point)
