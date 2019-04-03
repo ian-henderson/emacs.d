@@ -80,7 +80,6 @@
   :ensure t
   :init (setq solarized-distinct-fringe-background t
               solarized-high-contrast-mode-line t
-              solarized-use-less-bold t
               solarized-use-more-italic t))
 
 (defun my-web-mode-hook ()
