@@ -56,3 +56,6 @@ transient/
 
 # projectile
 projectile-bookmarks.eld
+
+# auto-package-update
+.last-package-update-day

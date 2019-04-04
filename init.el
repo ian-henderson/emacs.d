@@ -8,7 +8,7 @@
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(package-selected-packages
    (quote
-    (evil solarized-theme add-node-modules-path flycheck web-mode use-package projectile magit exec-path-from-shell autothemer auto-complete))))
+    (auto-package-update evil solarized-theme add-node-modules-path flycheck web-mode use-package projectile magit exec-path-from-shell autothemer auto-complete))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -45,6 +45,9 @@
   (ac-config-default)
   (global-auto-complete-mode t)
   :ensure t)
+
+;; https://github.com/rranelli/auto-package-update.el
+(use-package auto-package-update :config (auto-package-update-maybe) :ensure t)
 
 ;; https://github.com/emacs-evil/evil
 (use-package evil :config (evil-mode 1) :ensure t)
@@ -117,10 +120,10 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "IBM Plex Mono-14")
+(set-face-attribute 'default nil :font "Roboto Mono-13")
 
 ;; Line height
-(setq-default line-spacing 0.2)
+(setq-default line-spacing 0.15)
 
 ;; Scroll bar
 (scroll-bar-mode -1)
@@ -128,7 +131,7 @@
 ;; Full-screen and maximize key bindings and startup maximized
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-c m") 'toggle-frame-maximized)
-(toggle-frame-maximized)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 ;; Turns off bell
 (setq ring-bell-function 'ignore)
