@@ -142,8 +142,7 @@
 (use-package magit
   :bind (("C-x g" . magit-status)
          ("C-c g" . magit-file-dispatch))
-  :ensure t
-  :init (setq magit-refresh-status-buffer nil))
+  :ensure t)
 
 ;; https://docs.projectile.mx/
 (use-package projectile
