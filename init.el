@@ -78,6 +78,7 @@
   :config (projectile-mode +1))
 
 (defun toggle-theme-mode ()
+  "Toggles between dark and light themes"
   (interactive)
   (cond ((equal current-theme dark-theme)
          (load-theme light-theme)
