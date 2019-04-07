@@ -77,21 +77,22 @@
          ("C-c p" . projectile-command-map))
   :config (projectile-mode +1))
 
-(defun toggle-theme-mode ()
-  "Toggles between dark and light themes."
+(defun toggle-theme ()
+  "Toggles dark and light themes."
   (interactive)
-  (cond ((equal current-theme dark-theme)
-         (load-theme light-theme)
-         (setq current-theme light-theme)
-         (message "%s" light-theme))
-        ((equal current-theme light-theme)
-         (load-theme dark-theme)
-         (setq current-theme dark-theme)
-         (message "%s" dark-theme))))
+  (if (and (boundp 'current-theme)
+           (boundp 'dark-theme)
+           (boundp 'light-theme))
+      (progn (setq current-theme
+                   (if (equal current-theme dark-theme) light-theme dark-theme))
+             (load-theme current-theme)
+             (message "current-theme: %s" current-theme))
+    (message "Requires current-theme, dark-theme, and light-theme to be set.")))
 
 ;; https://github.com/bbatsov/solarized-emacs
 (use-package solarized-theme
-  :bind ("C-c t" . 'toggle-theme-mode)
+  :bind
+  ("C-c t" . 'toggle-theme)
   :config
   (setq dark-theme 'solarized-dark
         light-theme 'solarized-light
