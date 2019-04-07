@@ -80,14 +80,16 @@
 (defun toggle-theme ()
   "Toggles dark and light themes."
   (interactive)
-  (if (and (boundp 'current-theme)
-           (boundp 'dark-theme)
-           (boundp 'light-theme))
-      (progn (setq current-theme
-                   (if (equal current-theme dark-theme) light-theme dark-theme))
-             (load-theme current-theme)
-             (message "current-theme: %s" current-theme))
-    (message "Requires current-theme, dark-theme, and light-theme to be set.")))
+  (catch 'unset-variables
+    (when (null (and (boundp 'current-theme)
+                     (boundp 'dark-theme)
+                     (boundp 'light-theme)))
+      (throw 'unset-variables
+             "Requires current-theme, dark-theme, and light-theme to be set."))
+    (setq current-theme
+          (if (equal current-theme dark-theme) light-theme dark-theme))
+    (load-theme current-theme)
+    (message "current-theme: %s" current-theme)))
 
 ;; https://github.com/bbatsov/solarized-emacs
 (use-package solarized-theme
