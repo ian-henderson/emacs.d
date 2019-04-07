@@ -97,28 +97,32 @@
 (package-initialize)
 
 ;; https://github.com/jwiegley/use-package
-(eval-when-compile (require 'use-package))
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package)
+  (setq use-package-always-ensure t))
 
 ;; https://github.com/codesuki/add-node-modules-path
-(use-package add-node-modules-path :ensure t)
+(use-package add-node-modules-path)
 
 ;; https://github.com/auto-complete/auto-complete
 (use-package auto-complete
   :config
   (ac-config-default)
-  (global-auto-complete-mode t)
-  :ensure t)
+  (global-auto-complete-mode t))
 
 ;; https://github.com/rranelli/auto-package-update.el
-(use-package auto-package-update :config (auto-package-update-maybe) :ensure t)
+(use-package auto-package-update :config (auto-package-update-maybe))
 
 ;; https://github.com/emacs-evil/evil
-(use-package evil :config (evil-mode 1) :ensure t)
+(use-package evil :config (evil-mode 1))
 
 ;; https://github.com/purcell/exec-path-from-shell
 (use-package exec-path-from-shell
   :config (exec-path-from-shell-initialize)
-  :ensure t
   :if (memq window-system '(mac ns x)))
 
 ;; https://flycheck.readthedocs.io/en/latest/
@@ -126,13 +130,11 @@
   :config
   (add-hook 'scss-mode-hook 'flycheck-mode)
   (flycheck-add-mode 'sass/scss-sass-lint 'scss-mode)
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  :ensure t)
+  (flycheck-add-mode 'javascript-eslint 'web-mode))
 
 ;; https://github.com/valignatev/heaven-and-hell
 (use-package heaven-and-hell
   :bind ("C-c s" . heaven-and-hell-toggle-theme)
-  :ensure t
   :hook (after-init . heaven-and-hell-init-hook)
   :init (setq heaven-and-hell-theme-type 'dark
               heaven-and-hell-themes '((dark . solarized-dark)
@@ -141,21 +143,18 @@
 ;; https://magit.vc/manual/magit/
 (use-package magit
   :bind (("C-x g" . magit-status)
-         ("C-c g" . magit-file-dispatch))
-  :ensure t)
+         ("C-c g" . magit-file-dispatch)))
 
 ;; https://docs.projectile.mx/
 (use-package projectile
   :bind (("s-p" . projectile-command-map)
          ("C-c p" . projectile-command-map))
-  :config (projectile-mode +1)
-  :ensure t)
+  :config (projectile-mode +1))
 
 ;; https://github.com/bbatsov/solarized-emacs
 (use-package solarized-theme
   :bind ("C-c s" . 'toggle-solarized)
   :config (load-theme 'solarized-dark)
-  :ensure t
   :init (setq solarized-distinct-fringe-background t
               solarized-high-contrast-mode-line t
               solarized-use-more-italic t))
@@ -179,7 +178,6 @@
   (add-hook 'web-mode-hook #'add-node-modules-path)
   (add-hook 'web-mode-hook 'flycheck-mode)
   (add-hook 'web-mode-hook 'my-web-mode-hook)
-  :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
@@ -193,7 +191,7 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "Monoid-12")
+(set-face-attribute 'default nil :font "PT Mono-12")
 
 ;; Line height
 (setq-default line-spacing 0.3)
