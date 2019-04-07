@@ -78,7 +78,7 @@
   :config (projectile-mode +1))
 
 (defun toggle-theme-mode ()
-  "Toggles between dark and light themes"
+  "Toggles between dark and light themes."
   (interactive)
   (cond ((equal current-theme dark-theme)
          (load-theme light-theme)
@@ -134,7 +134,7 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "Courier Prime Code-12")
+(set-face-attribute 'default nil :font "Roboto Mono-12")
 
 ;; Line height
 (setq-default line-spacing 0.1)
@@ -178,3 +178,9 @@
 
 ;; Open a url in browser
 (global-set-key (kbd "C-c u") 'browse-url-at-point)
+
+;; Hides tool-bar
+(tool-bar-mode -1)
+
+;; Hides menu-bar
+(menu-bar-mode -1)
