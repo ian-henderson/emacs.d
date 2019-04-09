@@ -43,17 +43,6 @@
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (flycheck-add-mode 'sass/scss-sass-lint 'scss-mode))
 
-;; https://magit.vc/manual/magit/
-(use-package magit
-  :bind (("C-x g" . magit-status)
-         ("C-c g" . magit-file-dispatch)))
-
-;; https://docs.projectile.mx/
-(use-package projectile
-  :bind (("s-p" . projectile-command-map)
-         ("C-c p" . projectile-command-map))
-  :config (projectile-mode +1))
-
 (defun toggle-theme ()
   "Toggles dark and light themes."
   (interactive)
@@ -65,22 +54,29 @@
              "Requires current-theme, dark-theme, and light-theme to be set."))
     (setq current-theme
           (if (equal current-theme dark-theme) light-theme dark-theme))
-    (load-theme current-theme)
+    (load-theme current-theme t)
     (message "current-theme: %s" current-theme)))
 
-;; https://github.com/bbatsov/solarized-emacs
-(use-package solarized-theme
+;; https://github.com/cpaulik/emacs-material-theme
+(use-package material-theme
   :bind
   ("C-c t" . 'toggle-theme)
   :config
-  (setq dark-theme 'solarized-dark
-        light-theme 'solarized-light
+  (setq dark-theme 'material
+        light-theme 'material-light
         current-theme dark-theme)
-  (load-theme current-theme)
-  :init
-  (setq solarized-distinct-fringe-background t
-        solarized-high-contrast-mode-line t
-        solarized-use-more-italic t))
+  (load-theme current-theme t))
+
+;; https://magit.vc/manual/magit/
+(use-package magit
+  :bind (("C-x g" . magit-status)
+         ("C-c g" . magit-file-dispatch)))
+
+;; https://docs.projectile.mx/
+(use-package projectile
+  :bind (("s-p" . projectile-command-map)
+         ("C-c p" . projectile-command-map))
+  :config (projectile-mode +1))
 
 (defun my-web-mode-hook ()
   "web-mode configuration."
