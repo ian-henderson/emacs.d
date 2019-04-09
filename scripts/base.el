@@ -26,7 +26,7 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "Iosevka SS06-24")
+(set-face-attribute 'default nil :font "Operator Mono-24")
 
 ;; Line height
 (setq-default line-spacing 0.2)

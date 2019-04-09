@@ -28,6 +28,32 @@
 ;; https://github.com/rranelli/auto-package-update.el
 (use-package auto-package-update :config (auto-package-update-maybe))
 
+(defun toggle-theme ()
+  "Toggles dark and light themes."
+  (interactive)
+  (catch 'unset-variables
+    (when (null (and (boundp 'current-theme)
+                     (boundp 'dark-theme)
+                     (boundp 'light-theme)))
+      (throw 'unset-variables
+             "Requires current-theme, dark-theme, and light-theme to be set."))
+    (setq current-theme
+          (if (equal current-theme dark-theme) light-theme dark-theme))
+    (load-theme current-theme t)
+    (message "current-theme: %s" current-theme)))
+
+;; https://github.com/hlissner/emacs-doom-themes
+(use-package doom-themes
+  :bind
+  ("C-c t" . 'toggle-theme)
+  :config
+  (doom-themes-org-config)
+  (doom-themes-visual-bell-config)
+  (setq dark-theme 'doom-tomorrow-night
+        light-theme 'doom-tomorrow-day
+        current-theme dark-theme)
+  (load-theme current-theme t))
+
 ;; https://github.com/emacs-evil/evil
 (use-package evil :config (evil-mode 1))
 
@@ -47,30 +73,6 @@
 (use-package magit
   :bind (("C-x g" . magit-status)
          ("C-c g" . magit-file-dispatch)))
-
-(defun toggle-theme ()
-  "Toggles dark and light themes."
-  (interactive)
-  (catch 'unset-variables
-    (when (null (and (boundp 'current-theme)
-                     (boundp 'dark-theme)
-                     (boundp 'light-theme)))
-      (throw 'unset-variables
-             "Requires current-theme, dark-theme, and light-theme to be set."))
-    (setq current-theme
-          (if (equal current-theme dark-theme) light-theme dark-theme))
-    (load-theme current-theme t)
-    (message "current-theme: %s" current-theme)))
-
-;; https://github.com/kuanyui/moe-theme.el
-(use-package moe-theme
-  :bind
-  ("C-c t" . 'toggle-theme)
-  :config
-  (setq dark-theme 'moe-dark
-        light-theme 'moe-light
-        current-theme dark-theme)
-  (load-theme current-theme t))
 
 ;; https://docs.projectile.mx/
 (use-package projectile
