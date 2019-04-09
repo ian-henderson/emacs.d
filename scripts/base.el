@@ -1,3 +1,10 @@
+(defun reload ()
+  "Reloads user init file."
+  (interactive)
+  (load-file user-init-file))
+
+(global-set-key (kbd "C-c r") 'reload)
+
 ;; Disables global eldoc mode
 (setq global-eldoc-mode nil)
 
@@ -6,10 +13,10 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "Roboto Mono-12")
+(set-face-attribute 'default nil :font "Fantasque Sans Mono-18")
 
 ;; Line height
-(setq-default line-spacing 0.1)
+(setq-default line-spacing 0.3)
 
 ;; Scroll bar
 (scroll-bar-mode -1)

@@ -14,13 +14,6 @@
  ;; If there is more than one, they won't work right.
  )
 
-(defun reload ()
-  "Reloads user init file."
-  (interactive)
-  (load-file user-init-file))
-
-(global-set-key (kbd "C-c r") 'reload)
-
 (add-to-list 'load-path "~/.emacs.d/scripts")
 (load "base.el")
 (load "packages.el")
