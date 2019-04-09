@@ -43,6 +43,11 @@
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (flycheck-add-mode 'sass/scss-sass-lint 'scss-mode))
 
+;; https://magit.vc/manual/magit/
+(use-package magit
+  :bind (("C-x g" . magit-status)
+         ("C-c g" . magit-file-dispatch)))
+
 (defun toggle-theme ()
   "Toggles dark and light themes."
   (interactive)
@@ -57,20 +62,15 @@
     (load-theme current-theme t)
     (message "current-theme: %s" current-theme)))
 
-;; https://github.com/cpaulik/emacs-material-theme
-(use-package material-theme
+;; https://github.com/kuanyui/moe-theme.el
+(use-package moe-theme
   :bind
   ("C-c t" . 'toggle-theme)
   :config
-  (setq dark-theme 'material
-        light-theme 'material-light
+  (setq dark-theme 'moe-dark
+        light-theme 'moe-light
         current-theme dark-theme)
   (load-theme current-theme t))
-
-;; https://magit.vc/manual/magit/
-(use-package magit
-  :bind (("C-x g" . magit-status)
-         ("C-c g" . magit-file-dispatch)))
 
 ;; https://docs.projectile.mx/
 (use-package projectile
