@@ -101,5 +101,6 @@
   (add-hook 'web-mode-hook 'my-web-mode-hook)
   :init
   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode)))
