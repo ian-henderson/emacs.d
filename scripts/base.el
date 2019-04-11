@@ -1,4 +1,5 @@
-;;; Editing
+;; Wraps lines without breaking words
+(global-visual-line-mode t)
 
 ;; Disable tab characters
 (setq-default indent-tabs-mode nil)
@@ -11,10 +12,6 @@
       read-buffer-completion-ignore-case t
       read-file-name-completion-ignore-case t)
 
-
-
-;;; Interface
-
 ;; Hides tool-bar
 (tool-bar-mode -1)
 
@@ -26,7 +23,7 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "Operator Mono-18")
+(set-face-attribute 'default nil :font "Operator Mono-14")
 
 ;; Line height
 (setq-default line-spacing 0.2)
@@ -50,8 +47,6 @@
 (show-paren-mode 1)
 
 
-
-;;; Modes
 
 ;; Disables global eldoc mode
 (setq global-eldoc-mode nil)
@@ -80,10 +75,6 @@
 
 (global-set-key (kbd "M--")
                 '(lambda () (interactive) (global-text-scale-adjust -1)))
-
-
-
-;;; Utilities
 
 (defun reload ()
   "Reloads user init file."
