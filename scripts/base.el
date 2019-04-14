@@ -26,10 +26,10 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "Operator Mono-18")
+(set-face-attribute 'default nil :font "Ubuntu Mono-14")
 
 ;; Line height
-(setq-default line-spacing 0.2)
+(setq-default line-spacing 0.1)
 
 ;; Scroll bar
 (scroll-bar-mode -1)
