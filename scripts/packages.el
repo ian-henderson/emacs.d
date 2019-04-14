@@ -40,7 +40,7 @@
     (setq current-theme
           (if (equal current-theme dark-theme) light-theme dark-theme))
     (load-theme current-theme t)
-    (message "current-theme: %s" current-theme)))
+    (message "theme: %s" current-theme)))
 
 ;; https://github.com/hlissner/emacs-doom-themes
 (use-package doom-themes
@@ -49,8 +49,8 @@
   :config
   (doom-themes-org-config)
   (doom-themes-visual-bell-config)
-  (setq dark-theme 'doom-opera
-        light-theme 'doom-opera-light
+  (setq dark-theme 'doom-nord
+        light-theme 'doom-nord-light
         current-theme dark-theme)
   (load-theme current-theme t))
 
