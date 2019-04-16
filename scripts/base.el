@@ -23,10 +23,10 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "Ubuntu Mono-14")
+(set-face-attribute 'default nil :font "PT Mono-24")
 
 ;; Line height
-(setq-default line-spacing 0.1)
+(setq-default line-spacing 0.2)
 
 ;; Scroll bar
 (scroll-bar-mode -1)
@@ -54,7 +54,6 @@
 ;; Electric Pair Mode
 (electric-pair-mode)
 
-;; Global Text Scale Mode
 ;; https://www.emacswiki.org/emacs/GlobalTextScaleMode
 (define-globalized-minor-mode global-text-scale-mode
   text-scale-mode (lambda () (text-scale-mode 1)))
