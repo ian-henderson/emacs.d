@@ -22,13 +22,15 @@
 (setq mac-command-modifier 'meta
       mac-option-modifier 'none)
 
-;; Typeface
-(set-face-attribute 'default nil :font "Source Code Pro-12")
+;; Fonts
+(setq typeface "Hasklig" font-size "14")
+(when (find-font (font-spec :name typeface))
+  (set-face-attribute 'default nil :font (format "%s-%s" typeface font-size)))
 
 ;; Line height
-(setq-default line-spacing 0.2)
+(setq-default line-spacing 0.1)
 
-;; Scroll bar
+;; Disables scroll-bar
 (scroll-bar-mode -1)
 
 ;; Disables bell
