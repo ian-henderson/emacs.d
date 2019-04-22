@@ -23,7 +23,7 @@
       mac-option-modifier 'none)
 
 ;; Typeface
-(set-face-attribute 'default nil :font "Ubuntu Mono-14")
+(set-face-attribute 'default nil :font "Source Code Pro-12")
 
 ;; Line height
 (setq-default line-spacing 0.1)

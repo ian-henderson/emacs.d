@@ -49,8 +49,8 @@
   :config
   (doom-themes-org-config)
   (doom-themes-visual-bell-config)
-  (setq dark-theme 'doom-nord
-        light-theme 'doom-nord-light
+  (setq dark-theme 'doom-tomorrow-night
+        light-theme 'doom-tomorrow-day
         current-theme dark-theme)
   (load-theme current-theme t))
 

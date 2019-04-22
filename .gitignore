@@ -40,7 +40,7 @@ flycheck_*.el
 /server/
 
 # projectiles files
-.projectile
+.projectile*
 
 # directory configuration
 .dir-locals.el
@@ -59,3 +59,6 @@ projectile-bookmarks.eld
 
 # auto-package-update
 .last-package-update-day
+
+# gnome-shell
+session.*
