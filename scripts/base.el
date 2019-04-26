@@ -23,12 +23,12 @@
       mac-option-modifier 'none)
 
 ;; Fonts
-(setq typeface "Hasklig" font-size "14")
-(when (find-font (font-spec :name typeface))
-  (set-face-attribute 'default nil :font (format "%s-%s" typeface font-size)))
+(let ((typeface "Operator Mono") (size "14"))
+  (when (find-font (font-spec :name typeface))
+    (set-face-attribute 'default nil :font (format "%s-%s" typeface size))))
 
 ;; Line height
-(setq-default line-spacing 0.1)
+(setq-default line-spacing 0.2)
 
 ;; Disables scroll-bar
 (scroll-bar-mode -1)
@@ -48,41 +48,43 @@
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
-
-
 ;; Disables global eldoc mode
 (setq global-eldoc-mode nil)
 
 ;; Electric Pair Mode
 (electric-pair-mode)
 
+;; Displays “lambda” as “λ”
+(global-prettify-symbols-mode 1)
+
 ;; https://www.emacswiki.org/emacs/GlobalTextScaleMode
 (define-globalized-minor-mode global-text-scale-mode
   text-scale-mode (lambda () (text-scale-mode 1)))
 
 (defun global-text-scale-adjust (inc) (interactive)
-  (text-scale-set 1)
-  (kill-local-variable 'text-scale-mode-amount)
-  (setq-default text-scale-mode-amount (+ text-scale-mode-amount inc))
-  (global-text-scale-mode 1))
+       (text-scale-set 1)
+       (kill-local-variable 'text-scale-mode-amount)
+       (setq-default text-scale-mode-amount (+ text-scale-mode-amount inc))
+       (global-text-scale-mode 1))
 
-(global-set-key (kbd "M-0")
-                '(lambda () (interactive)
-                   (global-text-scale-adjust (- text-scale-mode-amount))
-                   (global-text-scale-mode -1)))
+(global-set-key
+ (kbd "M-0")
+ (lambda () (interactive)
+   (global-text-scale-adjust (- text-scale-mode-amount))
+   (global-text-scale-mode -1)))
 
-(global-set-key (kbd "M-=")
-                '(lambda () (interactive) (global-text-scale-adjust 1)))
+(global-set-key
+ (kbd "M-=")
+ (lambda () (interactive) (global-text-scale-adjust 1)))
 
-(global-set-key (kbd "M--")
-                '(lambda () (interactive) (global-text-scale-adjust -1)))
+(global-set-key
+ (kbd "M--")
+ (lambda () (interactive) (global-text-scale-adjust -1)))
 
-(defun reload ()
-  "Reloads user init file."
-  (interactive)
-  (load-file user-init-file))
-
-(global-set-key (kbd "C-c r") 'reload)
+;; Reloads user init file
+(global-set-key
+ (kbd "C-c r")
+ (lambda () (interactive) (load-file user-init-file)))
 
 ;; Maximized at startup and fullscreen, maximize key bindings
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
