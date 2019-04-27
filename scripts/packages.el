@@ -28,24 +28,14 @@
 ;; https://github.com/rranelli/auto-package-update.el
 (use-package auto-package-update :config (auto-package-update-maybe))
 
-(defun toggle-theme ()
-  "Toggles dark and light themes."
-  (interactive)
-  (catch 'unset-variables
-    (when (null (and (boundp 'current-theme)
-                     (boundp 'dark-theme)
-                     (boundp 'light-theme)))
-      (throw 'unset-variables
-             "Requires current-theme, dark-theme, and light-theme to be set."))
-    (setq current-theme
-          (if (equal current-theme dark-theme) light-theme dark-theme))
-    (load-theme current-theme t)
-    (message "theme: %s" current-theme)))
-
 ;; https://github.com/hlissner/emacs-doom-themes
 (use-package doom-themes
   :bind
-  ("C-c t" . 'toggle-theme)
+  ("C-c t" . (lambda () (interactive)
+               (setq current-theme (if (equal current-theme dark-theme)
+                                       light-theme dark-theme))
+               (load-theme current-theme t)
+               (message "theme: %s" current-theme)))
   :config
   (doom-themes-org-config)
   (doom-themes-visual-bell-config)
