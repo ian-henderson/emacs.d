@@ -23,9 +23,12 @@
       mac-option-modifier 'none)
 
 ;; Fonts
-(let ((typeface "Operator Mono") (size "14"))
-  (when (find-font (font-spec :name typeface))
-    (set-face-attribute 'default nil :font (format "%s-%s" typeface size))))
+(let ((monospace "Fira Mono") (sans-serif "Fira Sans") (size "18"))
+  (when (find-font (font-spec :name monospace))
+    (set-frame-font (format "%s-%s" monospace size) t t)
+    (set-face-font 'fixed-pitch-serif monospace))
+  (when (find-font (font-spec :name sans-serif))
+    (set-face-font 'variable-pitch sans-serif)))
 
 ;; Line height
 (setq-default line-spacing 0.2)

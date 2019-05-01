@@ -35,7 +35,7 @@
                (setq current-theme (if (equal current-theme dark-theme)
                                        light-theme dark-theme))
                (load-theme current-theme t)
-               (message "theme: %s" current-theme)))
+               (message "loaded %s" current-theme)))
   :config
   (doom-themes-org-config)
   (doom-themes-visual-bell-config)
@@ -69,6 +69,9 @@
   :bind (("s-p" . projectile-command-map)
          ("C-c p" . projectile-command-map))
   :config (projectile-mode +1))
+
+;; https://github.com/rust-lang/rust-mode
+(use-package rust-mode)
 
 (defun my-web-mode-hook ()
   "web-mode configuration."
