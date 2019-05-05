@@ -13,10 +13,10 @@
       read-file-name-completion-ignore-case t)
 
 ;; Hides tool-bar
-(tool-bar-mode -1)
+(when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
 
 ;; Hides menu-bar
-(menu-bar-mode -1)
+(when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 ;; Command key as meta
 (setq mac-command-modifier 'meta
@@ -34,7 +34,7 @@
 (setq-default line-spacing 0.2)
 
 ;; Disables scroll-bar
-(scroll-bar-mode -1)
+(when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 ;; Disables bell
 (setq ring-bell-function 'ignore)
