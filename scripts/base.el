@@ -63,12 +63,9 @@
 ;; Displays “lambda” as “λ”
 (global-prettify-symbols-mode 1)
 
-;; Fixes a macOS titlebar issue where the titlebar text is black on a dark
-;; background https://github.com/d12frosted/homebrew-emacs-plus/issues/55
-;; ¯\_(ツ)_/¯
-(when (string-equal system-type "darwin")
-  (add-to-list 'frameset-filter-alist '(ns-transparent-titlebar . :never))
-  (add-to-list 'frameset-filter-alist '(ns-appearance . :never)))
+;; Hides titlebar icon and text. There was a bug where the text was black on a
+;; dark titlebar background ¯\_(ツ)_/¯
+(setq frame-title-format nil ns-use-proxy-icon nil)
 
 ;; https://www.emacswiki.org/emacs/GlobalTextScaleMode
 (define-globalized-minor-mode global-text-scale-mode
