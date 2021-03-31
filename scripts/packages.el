@@ -10,12 +10,16 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
+;; https://github.com/jwiegley/use-package
 (eval-when-compile
   (require 'use-package)
   (setq use-package-always-ensure t))
 
 ;; https://github.com/codesuki/add-node-modules-path
 (use-package add-node-modules-path)
+
+;; https://github.com/domtronn/all-the-icons.el
+(use-package all-the-icons :if (string-equal system-type "darwin"))
 
 ;; https://github.com/auto-complete/auto-complete
 (use-package auto-complete
@@ -32,6 +36,12 @@
 ;; https://github.com/emacs-pe/docker-tramp.el
 (use-package docker-tramp)
 
+;; https://github.com/seagle0128/doom-modeline (uses all-the-icons)
+(use-package doom-modeline
+  :ensure t
+  :if (string-equal system-type "darwin")
+  :init (doom-modeline-mode 1))
+
 ;; https://github.com/hlissner/emacs-doom-themes
 (use-package doom-themes
   :bind ("C-c t" . (lambda ()
@@ -43,8 +53,8 @@
   :config
   (doom-themes-org-config)
   (doom-themes-visual-bell-config)
-  (setq dark-theme 'doom-vibrant
-        light-theme 'doom-tomorrow-day
+  (setq dark-theme 'doom-one
+        light-theme 'doom-one-light
         current-theme dark-theme)
   (load-theme current-theme t))
 

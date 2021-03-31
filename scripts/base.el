@@ -16,17 +16,20 @@
               read-file-name-completion-ignore-case t)
 
 ;; Hides tool-bar
-(setq-default tool-bar-mode -1)
+(tool-bar-mode 0)
 
 ;; Hides menu-bar
-(setq-default menu-bar-mode -1)
+(menu-bar-mode 0)
+
+;; Disables scroll-bar
+(scroll-bar-mode 0)
 
 ;; Command key as meta
 (setq mac-command-modifier 'meta
       mac-option-modifier 'none)
 
 ;; Fonts
-(let ((monospace "Fira Code") (sans-serif "Fira Sans") (size "14"))
+(let ((monospace "Fira Code Retina") (sans-serif "Fira Sans") (size "14"))
   (when (find-font (font-spec :name monospace))
     (set-frame-font (format "%s-%s" monospace size) t t)
     (set-face-font 'fixed-pitch-serif monospace))
@@ -35,9 +38,6 @@
 
 ;; Line height
 (setq-default line-spacing 0.2)
-
-;; Disables scroll-bar
-(setq-default scroll-bar-mode -1)
 
 ;; Disables bell
 (setq ring-bell-function 'ignore)
@@ -55,13 +55,20 @@
 (show-paren-mode 1)
 
 ;; Disables global eldoc mode
-(setq global-eldoc-mode nil)
+(global-eldoc-mode 0)
 
 ;; Electric Pair Mode
 (electric-pair-mode)
 
 ;; Displays “lambda” as “λ”
 (global-prettify-symbols-mode 1)
+
+;; Fixes a macOS titlebar issue where the titlebar text is black on a dark
+;; background https://github.com/d12frosted/homebrew-emacs-plus/issues/55
+;; ¯\_(ツ)_/¯
+(when (string-equal system-type "darwin")
+  (add-to-list 'frameset-filter-alist '(ns-transparent-titlebar . :never))
+  (add-to-list 'frameset-filter-alist '(ns-appearance . :never)))
 
 ;; https://www.emacswiki.org/emacs/GlobalTextScaleMode
 (define-globalized-minor-mode global-text-scale-mode
