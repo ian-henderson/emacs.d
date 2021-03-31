@@ -26,14 +26,20 @@
 ;; https://github.com/rranelli/auto-package-update.el
 (use-package auto-package-update :config (auto-package-update-maybe))
 
+;; https://github.com/Silex/docker.el
+(use-package docker :bind ("C-c d" . docker) :ensure t)
+
+;; https://github.com/emacs-pe/docker-tramp.el
+(use-package docker-tramp)
+
 ;; https://github.com/hlissner/emacs-doom-themes
 (use-package doom-themes
-  :bind
-  ("C-c t" . (lambda () (interactive)
-               (setq current-theme (if (equal current-theme dark-theme)
-                                       light-theme dark-theme))
-               (load-theme current-theme t)
-               (message "loaded %s" current-theme)))
+  :bind ("C-c t" . (lambda ()
+    (interactive)
+    (setq current-theme
+        (if (equal current-theme dark-theme) light-theme dark-theme))
+    (load-theme current-theme t)
+    (message "loaded %s" current-theme)))
   :config
   (doom-themes-org-config)
   (doom-themes-visual-bell-config)
@@ -43,7 +49,7 @@
   (load-theme current-theme t))
 
 ;; https://github.com/emacs-evil/evil
-;; (use-package evil :config (evil-mode 1))
+(use-package evil :config (evil-mode 1))
 
 ;; https://github.com/purcell/exec-path-from-shell
 (use-package exec-path-from-shell
@@ -59,13 +65,11 @@
 
 ;; https://magit.vc/manual/magit/
 (use-package magit
-  :bind (("C-x g" . magit-status)
-         ("C-c g" . magit-file-dispatch)))
+  :bind (("C-x g" . magit-status) ("C-c g" . magit-file-dispatch)))
 
 ;; https://docs.projectile.mx/
 (use-package projectile
-  :bind (("s-p" . projectile-command-map)
-         ("C-c p" . projectile-command-map))
+  :bind (("s-p" . projectile-command-map) ("C-c p" . projectile-command-map))
   :config (projectile-mode +1))
 
 ;; https://github.com/rust-lang/rust-mode
