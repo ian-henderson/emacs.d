@@ -1,3 +1,6 @@
+;; Saves desktop state on exit
+(desktop-save-mode 1)
+
 ;; Wraps lines without breaking words
 (global-visual-line-mode t)
 
@@ -13,17 +16,17 @@
       read-file-name-completion-ignore-case t)
 
 ;; Hides tool-bar
-(when (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(setq-default tool-bar-mode -1)
 
 ;; Hides menu-bar
-(when (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(setq-default menu-bar-mode -1)
 
 ;; Command key as meta
 (setq mac-command-modifier 'meta
       mac-option-modifier 'none)
 
 ;; Fonts
-(let ((monospace "Fira Mono") (sans-serif "Fira Sans") (size "18"))
+(let ((monospace "Fira Code") (sans-serif "Fira Sans") (size "14"))
   (when (find-font (font-spec :name monospace))
     (set-frame-font (format "%s-%s" monospace size) t t)
     (set-face-font 'fixed-pitch-serif monospace))
@@ -34,7 +37,7 @@
 (setq-default line-spacing 0.2)
 
 ;; Disables scroll-bar
-(when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(setq-default scroll-bar-mode -1)
 
 ;; Disables bell
 (setq ring-bell-function 'ignore)

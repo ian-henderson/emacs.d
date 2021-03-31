@@ -5,8 +5,6 @@
 (add-to-list
  'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
-(package-initialize)
-
 ;; https://github.com/jwiegley/use-package
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -39,13 +37,13 @@
   :config
   (doom-themes-org-config)
   (doom-themes-visual-bell-config)
-  (setq dark-theme 'doom-tomorrow-night
+  (setq dark-theme 'doom-vibrant
         light-theme 'doom-tomorrow-day
         current-theme dark-theme)
   (load-theme current-theme t))
 
 ;; https://github.com/emacs-evil/evil
-(use-package evil :config (evil-mode 1))
+;; (use-package evil :config (evil-mode 1))
 
 ;; https://github.com/purcell/exec-path-from-shell
 (use-package exec-path-from-shell
