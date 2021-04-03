@@ -53,10 +53,16 @@
   :config
   (doom-themes-org-config)
   (doom-themes-visual-bell-config)
-  (setq dark-theme 'doom-one
-        light-theme 'doom-one-light
+  (setq dark-theme 'doom-tomorrow-night
+        light-theme 'doom-tomorrow-day
         current-theme dark-theme)
   (load-theme current-theme t))
+
+;; https://github.com/elixir-editors/emacs-elixir
+(use-package elixir-mode
+  :config
+  (add-hook 'elixir-mode-hook
+            (lambda () (add-hook 'before-save-hook 'elixir-format nil t))))
 
 ;; https://github.com/emacs-evil/evil
 (use-package evil :config (evil-mode 1))

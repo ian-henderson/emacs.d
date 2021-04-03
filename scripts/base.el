@@ -29,7 +29,7 @@
       mac-option-modifier 'none)
 
 ;; Fonts
-(let ((monospace "Fira Code Retina") (sans-serif "Fira Sans") (size "14"))
+(let ((monospace "Input Mono Narrow") (sans-serif "Input Sans") (size "18"))
   (when (find-font (font-spec :name monospace))
     (set-frame-font (format "%s-%s" monospace size) t t)
     (set-face-font 'fixed-pitch-serif monospace))
@@ -72,7 +72,6 @@
   text-scale-mode (lambda () (text-scale-mode 1)))
 
 (defun global-text-scale-adjust (inc)
-  (interactive)
   (text-scale-set 1)
   (kill-local-variable 'text-scale-mode-amount)
   (setq-default text-scale-mode-amount (+ text-scale-mode-amount inc))
@@ -91,7 +90,7 @@
 (global-set-key (kbd "C-c r") (lambda () (interactive) (load-file user-init-file)))
 
 ;; Maximized at startup and fullscreen, maximize key bindings
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-c m") 'toggle-frame-maximized)
 
