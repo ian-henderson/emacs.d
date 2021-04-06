@@ -91,6 +91,9 @@
 ;; https://github.com/rust-lang/rust-mode
 (use-package rust-mode)
 
+;; https://github.com/ethereum/emacs-solidity
+(use-package solidity-mode)
+
 (defun my-web-mode-hook ()
   "web-mode configuration."
   (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))

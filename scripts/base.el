@@ -29,7 +29,7 @@
       mac-option-modifier 'none)
 
 ;; Fonts
-(let ((monospace "Input Mono Narrow") (sans-serif "Input Sans") (size "18"))
+(let ((monospace "Input Mono Narrow") (sans-serif "Input Sans") (size "14"))
   (when (find-font (font-spec :name monospace))
     (set-frame-font (format "%s-%s" monospace size) t t)
     (set-face-font 'fixed-pitch-serif monospace))
@@ -90,7 +90,7 @@
 (global-set-key (kbd "C-c r") (lambda () (interactive) (load-file user-init-file)))
 
 ;; Maximized at startup and fullscreen, maximize key bindings
-; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-c m") 'toggle-frame-maximized)
 
