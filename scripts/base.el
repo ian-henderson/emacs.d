@@ -29,7 +29,14 @@
       mac-option-modifier 'none)
 
 ;; Fonts
-(let ((monospace "Input Mono Narrow") (sans-serif "Input Sans") (size "14"))
+(let
+    ((monospace (if (string-equal system-type "darwin")
+                    "Input Mono Narrow"
+                  "InputMonoNarrow"))
+     (sans-serif (if (string-equal system-type "darwin")
+                     "Input Sans Narrow"
+                   "InputSansNarrow"))
+     (size "12"))
   (when (find-font (font-spec :name monospace))
     (set-frame-font (format "%s-%s" monospace size) t t)
     (set-face-font 'fixed-pitch-serif monospace))
