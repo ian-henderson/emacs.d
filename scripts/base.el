@@ -97,7 +97,7 @@
 (global-set-key (kbd "C-c r") (lambda () (interactive) (load-file user-init-file)))
 
 ;; Maximized at startup and fullscreen, maximize key bindings
-; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-c m") 'toggle-frame-maximized)
 
