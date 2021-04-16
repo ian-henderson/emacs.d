@@ -53,8 +53,8 @@
   :config
   (doom-themes-org-config)
   (doom-themes-visual-bell-config)
-  (setq dark-theme 'doom-tomorrow-night
-        light-theme 'doom-tomorrow-day
+  (setq dark-theme 'doom-one
+        light-theme 'doom-one-light
         current-theme dark-theme)
   (load-theme current-theme t))
 
@@ -115,6 +115,11 @@
   (add-hook 'web-mode-hook 'my-web-mode-hook)
   :init
   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.ts[x]?\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode)))
+
+;; https://github.com/jscheid/prettier.el
+(use-package prettier
+  :config (add-hook 'after-init-hook #'global-prettier-mode))

@@ -29,14 +29,11 @@
       mac-option-modifier 'none)
 
 ;; Fonts
+(defun is-mac () (string-equal system-type "darwin"))
 (let
-    ((monospace (if (string-equal system-type "darwin")
-                    "Input Mono Narrow"
-                  "InputMonoNarrow"))
-     (sans-serif (if (string-equal system-type "darwin")
-                     "Input Sans Narrow"
-                   "InputSansNarrow"))
-     (size "12"))
+    ((monospace "Hasklig")
+     (sans-serif (if (is-mac) "Source Sans Pro" "SourceSansPro"))
+     (size (if (is-mac) "16" "12")))
   (when (find-font (font-spec :name monospace))
     (set-frame-font (format "%s-%s" monospace size) t t)
     (set-face-font 'fixed-pitch-serif monospace))
@@ -44,7 +41,7 @@
     (set-face-font 'variable-pitch sans-serif)))
 
 ;; Line height
-(setq-default line-spacing 0.2)
+; (setq-default line-spacing 0.2)
 
 ;; Disables bell
 (setq ring-bell-function 'ignore)
@@ -97,7 +94,7 @@
 (global-set-key (kbd "C-c r") (lambda () (interactive) (load-file user-init-file)))
 
 ;; Maximized at startup and fullscreen, maximize key bindings
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-c m") 'toggle-frame-maximized)
 
