@@ -69,6 +69,7 @@
 ;; https://github.com/emacs-evil/evil
 (use-package evil
   :config
+  (add-hook 'css-mode-hook 'evil-local-mode)
   (add-hook 'elixir-mode-hook 'evil-local-mode)
   (add-hook 'emacs-lisp-mode-hook 'evil-local-mode)
   (add-hook 'markdown-mode-hook 'evil-local-mode)

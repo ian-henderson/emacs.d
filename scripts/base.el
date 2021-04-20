@@ -1,3 +1,5 @@
+(defun is-mac () (string-equal system-type "darwin"))
+
 ;; Saves desktop state on exit
 (desktop-save-mode 1)
 
@@ -29,8 +31,7 @@
       mac-option-modifier 'none)
 
 ;; Fonts
-(defun is-mac () (string-equal system-type "darwin"))
-(let ((monospace "Hack")
+(let ((monospace "Monaco")
       (sans-serif (if (is-mac) "Alegreya Sans" "AlegreyaSans"))
       (size (if (is-mac) "16" "12")))
   (when (find-font (font-spec :name monospace))
@@ -105,3 +106,10 @@
 (global-set-key (kbd "C-c l") 'windmove-right)
 (global-set-key (kbd "C-c k") 'windmove-up)
 (global-set-key (kbd "C-c j") 'windmove-down)
+
+;; http://pragmaticemacs.com/emacs/scrolling-and-moving-by-line/
+;; Keeps cursor at same position when scrolling
+;; Scroll window up/down by one line
+(setq scroll-preserve-screen-position 1)
+(global-set-key (kbd "M-n") (kbd "C-u 1 C-v"))
+(global-set-key (kbd "M-p") (kbd "C-u 1 M-v"))
