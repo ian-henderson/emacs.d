@@ -30,18 +30,17 @@
 
 ;; Fonts
 (defun is-mac () (string-equal system-type "darwin"))
-(let
-    ((monospace "Hasklig")
-     (sans-serif (if (is-mac) "Source Sans Pro" "SourceSansPro"))
-     (size (if (is-mac) "16" "12")))
+(let ((monospace "Hack")
+      (sans-serif (if (is-mac) "Alegreya Sans" "AlegreyaSans"))
+      (size (if (is-mac) "16" "12")))
   (when (find-font (font-spec :name monospace))
     (set-frame-font (format "%s-%s" monospace size) t t)
     (set-face-font 'fixed-pitch-serif monospace))
   (when (find-font (font-spec :name sans-serif))
-    (set-face-font 'variable-pitch sans-serif)))
+    (set-face-font 'variable-pitch monospace)))
 
 ;; Line height
-; (setq-default line-spacing 0.2)
+(if (is-mac) (setq-default line-spacing 0.2))
 
 ;; Disables bell
 (setq ring-bell-function 'ignore)
@@ -100,3 +99,9 @@
 
 ;; Open a url in browser
 (global-set-key (kbd "C-c u") 'browse-url-at-point)
+
+;; Moves cursor across windows
+(global-set-key (kbd "C-c h") 'windmove-left)
+(global-set-key (kbd "C-c l") 'windmove-right)
+(global-set-key (kbd "C-c k") 'windmove-up)
+(global-set-key (kbd "C-c j") 'windmove-down)

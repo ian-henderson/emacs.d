@@ -62,3 +62,6 @@ projectile-bookmarks.eld
 
 # gnome-shell
 session.*
+
+# eww
+url/

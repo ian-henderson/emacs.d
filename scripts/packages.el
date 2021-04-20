@@ -37,19 +37,21 @@
 (use-package docker-tramp)
 
 ;; https://github.com/seagle0128/doom-modeline (uses all-the-icons)
-(use-package doom-modeline
-  :ensure t
-  :if (string-equal system-type "darwin")
-  :init (doom-modeline-mode 1))
+ (use-package doom-modeline
+   :ensure t
+   :if (string-equal system-type "darwin")
+   :init (doom-modeline-mode 1))
 
 ;; https://github.com/hlissner/emacs-doom-themes
-(use-package doom-themes
-  :bind ("C-c t" . (lambda ()
-    (interactive)
-    (setq current-theme
+(defun toggle-theme ()
+  (interactive)
+  (setq current-theme
         (if (equal current-theme dark-theme) light-theme dark-theme))
-    (load-theme current-theme t)
-    (message "loaded %s" current-theme)))
+  (load-theme current-theme t)
+  (message "loaded %s" current-theme))
+
+(use-package doom-themes
+  :bind ("C-c t" . 'toggle-theme)
   :config
   (doom-themes-org-config)
   (doom-themes-visual-bell-config)
@@ -65,7 +67,15 @@
             (lambda () (add-hook 'before-save-hook 'elixir-format nil t))))
 
 ;; https://github.com/emacs-evil/evil
-(use-package evil :config (evil-mode 1))
+(use-package evil
+  :config
+  (add-hook 'elixir-mode-hook 'evil-local-mode)
+  (add-hook 'emacs-lisp-mode-hook 'evil-local-mode)
+  (add-hook 'markdown-mode-hook 'evil-local-mode)
+  (add-hook 'rust-mode-hook 'evil-local-mode)
+  (add-hook 'shell-script-mode 'evil-local-mode)
+  (add-hook 'solidity-mode-hook 'evil-local-mode)
+  (add-hook 'web-mode-hook 'evil-local-mode))
 
 ;; https://github.com/purcell/exec-path-from-shell
 (use-package exec-path-from-shell
@@ -83,10 +93,15 @@
 (use-package magit
   :bind (("C-x g" . magit-status) ("C-c g" . magit-file-dispatch)))
 
-;; https://docs.projectile.mx/
-(use-package projectile
-  :bind (("s-p" . projectile-command-map) ("C-c p" . projectile-command-map))
-  :config (projectile-mode +1))
+;; https://github.com/jrblevin/markdown-mode
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
+
+;; https://github.com/jscheid/prettier.el
+(use-package prettier
+  :config (add-hook 'after-init-hook #'global-prettier-mode))
 
 ;; https://github.com/rust-lang/rust-mode
 (use-package rust-mode)
@@ -119,7 +134,3 @@
   (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode)))
-
-;; https://github.com/jscheid/prettier.el
-(use-package prettier
-  :config (add-hook 'after-init-hook #'global-prettier-mode))
