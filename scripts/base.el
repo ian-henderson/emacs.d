@@ -31,17 +31,17 @@
       mac-option-modifier 'none)
 
 ;; Fonts
-(let ((monospace "Monaco")
-      (sans-serif (if (is-mac) "Alegreya Sans" "AlegreyaSans"))
-      (size (if (is-mac) "16" "12")))
+(let ((monospace "Anonymous Pro")
+      (sans-serif "Alegreya Sans")
+      (size (if (is-mac) "18" "12")))
   (when (find-font (font-spec :name monospace))
     (set-frame-font (format "%s-%s" monospace size) t t)
     (set-face-font 'fixed-pitch-serif monospace))
   (when (find-font (font-spec :name sans-serif))
-    (set-face-font 'variable-pitch monospace)))
+    (set-face-font 'variable-pitch sans-serif)))
 
 ;; Line height
-(if (is-mac) (setq-default line-spacing 0.2))
+(if (is-mac) (setq-default line-spacing 0.4))
 
 ;; Disables bell
 (setq ring-bell-function 'ignore)
@@ -91,10 +91,13 @@
 (global-set-key (kbd "M-0") 'global-text-scale-reset)
 
 ;; Reloads user init file
-(global-set-key (kbd "C-c r") (lambda () (interactive) (load-file user-init-file)))
+(global-set-key (kbd "C-c r") (lambda ()
+                                "Reloads init.el"
+                                (interactive)
+                                (load-file user-init-file)))
 
 ;; Maximized at startup and fullscreen, maximize key bindings
-; (add-to-list 'default-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-c m") 'toggle-frame-maximized)
 
@@ -106,10 +109,3 @@
 (global-set-key (kbd "C-c l") 'windmove-right)
 (global-set-key (kbd "C-c k") 'windmove-up)
 (global-set-key (kbd "C-c j") 'windmove-down)
-
-;; http://pragmaticemacs.com/emacs/scrolling-and-moving-by-line/
-;; Keeps cursor at same position when scrolling
-;; Scroll window up/down by one line
-(setq scroll-preserve-screen-position 1)
-(global-set-key (kbd "M-n") (kbd "C-u 1 C-v"))
-(global-set-key (kbd "M-p") (kbd "C-u 1 M-v"))

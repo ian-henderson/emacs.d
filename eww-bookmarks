@@ -1,4 +1,7 @@
 ;; Auto-generated file; don't edit
-((:url "https://www.emacswiki.org/" :title "EmacsWiki: Site Map" :time "Tue Apr 20 02:32:38 2021")
+((:url "http://68k.news/" :title "68k.news: Headlines From the Future" :time "Wed Apr 28 21:02:39 2021")
+ (:url "https://www.emacswiki.org/emacs/ColorThemes" :title "EmacsWiki: Color Themes" :time "Tue Apr 27 23:36:50 2021")
+ (:url "https://www.emacswiki.org/emacs/Frame" :title "EmacsWiki: Frame" :time "Sat Apr 24 18:30:50 2021")
+ (:url "https://www.emacswiki.org/" :title "EmacsWiki: Site Map" :time "Tue Apr 20 02:32:38 2021")
  (:url "http://paulgraham.com/articles.html" :title "Essays" :time "Tue Apr 20 02:21:23 2021")
  (:url "https://news.ycombinator.com/news" :title "Hacker News" :time "Tue Apr 20 02:18:41 2021"))

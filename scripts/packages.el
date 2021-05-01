@@ -37,10 +37,10 @@
 (use-package docker-tramp)
 
 ;; https://github.com/seagle0128/doom-modeline (uses all-the-icons)
- (use-package doom-modeline
-   :ensure t
-   :if (string-equal system-type "darwin")
-   :init (doom-modeline-mode 1))
+(use-package doom-modeline
+  :ensure t
+  :if (string-equal system-type "darwin")
+  :init (doom-modeline-mode 1))
 
 ;; https://github.com/hlissner/emacs-doom-themes
 (defun toggle-theme ()
@@ -106,9 +106,6 @@
 
 ;; https://github.com/rust-lang/rust-mode
 (use-package rust-mode)
-
-;; https://github.com/ethereum/emacs-solidity
-(use-package solidity-mode)
 
 (defun my-web-mode-hook ()
   "web-mode configuration."
