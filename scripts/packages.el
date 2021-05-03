@@ -1,3 +1,7 @@
+;;; packages.el --- Melpa Packages
+;;; Code:
+;;; Commentary:
+
 ;; Package Archives
 (require 'package)
 
@@ -37,13 +41,19 @@
 (use-package docker-tramp)
 
 ;; https://github.com/seagle0128/doom-modeline (uses all-the-icons)
- (use-package doom-modeline
-   :ensure t
-   :if (string-equal system-type "darwin")
-   :init (doom-modeline-mode 1))
+(use-package doom-modeline
+  :ensure t
+  :if (string-equal system-type "darwin")
+  :init (doom-modeline-mode 1))
 
 ;; https://github.com/hlissner/emacs-doom-themes
+(eval-when-compile
+  (defvar current-theme)
+  (defvar dark-theme)
+  (defvar light-theme))
+
 (defun toggle-theme ()
+  "Toggle between light and dark themes."
   (interactive)
   (setq current-theme
         (if (equal current-theme dark-theme) light-theme dark-theme))
@@ -60,23 +70,17 @@
         current-theme dark-theme)
   (load-theme current-theme t))
 
-;; https://github.com/elixir-editors/emacs-elixir
-(use-package elixir-mode
-  :config
-  (add-hook 'elixir-mode-hook
-            (lambda () (add-hook 'before-save-hook 'elixir-format nil t))))
-
 ;; https://github.com/emacs-evil/evil
 (use-package evil
-  :config
-  (add-hook 'css-mode-hook 'evil-local-mode)
-  (add-hook 'elixir-mode-hook 'evil-local-mode)
-  (add-hook 'emacs-lisp-mode-hook 'evil-local-mode)
-  (add-hook 'markdown-mode-hook 'evil-local-mode)
-  (add-hook 'rust-mode-hook 'evil-local-mode)
-  (add-hook 'shell-script-mode 'evil-local-mode)
-  (add-hook 'solidity-mode-hook 'evil-local-mode)
-  (add-hook 'web-mode-hook 'evil-local-mode))
+  :hook
+  (css-mode . evil-local-mode)
+  (elixir-mode . evil-local-mode)
+  (emacs-lisp-mode . evil-local-mode)
+  (markdown-mode . evil-local-mode)
+  (rust-mode . evil-local-mode)
+  (shell-script-mode . evil-local-mode)
+  (solidity-mode . evil-local-mode)
+  (web-mode . evil-local-mode))
 
 ;; https://github.com/purcell/exec-path-from-shell
 (use-package exec-path-from-shell
@@ -85,10 +89,7 @@
 
 ;; https://flycheck.readthedocs.io/en/latest/
 (use-package flycheck
-  :config
-  (add-hook 'scss-mode-hook 'flycheck-mode)
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (flycheck-add-mode 'sass/scss-sass-lint 'scss-mode))
+  :after (global-flycheck-mode))
 
 ;; https://magit.vc/manual/magit/
 (use-package magit
@@ -97,8 +98,8 @@
 ;; https://github.com/jrblevin/markdown-mode
 (use-package markdown-mode
   :ensure t
-  :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown"))
+  :init (setq markdown-command "multimarkdown")
+  :mode ("\\.(md|markdown)\\'" . gfm-mode))
 
 ;; https://github.com/jscheid/prettier.el
 (use-package prettier
@@ -107,31 +108,37 @@
 ;; https://github.com/rust-lang/rust-mode
 (use-package rust-mode)
 
-;; https://github.com/ethereum/emacs-solidity
-(use-package solidity-mode)
+;; http://web-mode.org/
+(eval-when-compile
+  (defvar web-mode-code-indent-offset)
+  (defvar web-mode-content-type)
+  (defvar web-mode-css-indent-offset)
+  (defvar web-mode-indentation-params)
+  (defvar web-mode-markup-indent-offset))
 
-(defun my-web-mode-hook ()
-  "web-mode configuration."
+(defun web-mode-config ()
+  "Web mode config."
+  (flycheck-mode)
   (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil))
   (setq web-mode-code-indent-offset 2
         web-mode-css-indent-offset 2
-        web-mode-markup-indent-offset 2)
-  (if (equal web-mode-content-type "javascript")
-      (web-mode-set-content-type "jsx")
-    (message "content-type set to %s" web-mode-content-type)))
+        web-mode-markup-indent-offset 2))
 
-;; http://web-mode.org/
 (use-package web-mode
   :config
-  (add-hook 'web-mode-hook #'add-node-modules-path)
-  (add-hook 'web-mode-hook 'flycheck-mode)
-  (add-hook 'web-mode-hook 'my-web-mode-hook)
-  :init
+  (declare-function web-mode-set-content-type ())
+  (if (equal web-mode-content-type "javascript")
+      (web-mode-set-content-type "jsx")
+    (message "content-type set to %s" web-mode-content-type))
   (add-to-list 'auto-mode-alist '("\\.js[x]?\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.ts[x]?\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
   (add-to-list 'auto-mode-alist '("\\.json\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.php\\'" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode)))
+  :hook
+  (web-mode . web-mode-config))
+
+(provide 'packages)
+;;; packages.el ends here
