@@ -1,4 +1,10 @@
-(defun is-mac () (string-equal system-type "darwin"))
+;;; base.el --- Emacs Config
+;;; Code:
+;;; Commentary:
+
+(defun is-mac ()
+  "Check if system is macOS."
+  (string-equal system-type "darwin"))
 
 ;; Saves desktop state on exit
 (desktop-save-mode 1)
@@ -31,8 +37,8 @@
       mac-option-modifier 'none)
 
 ;; Fonts
-(let ((monospace "Anonymous Pro")
-      (sans-serif "Alegreya Sans")
+(let ((monospace "Courier Code")
+      (sans-serif "Verdana")
       (size (if (is-mac) "18" "12")))
   (when (find-font (font-spec :name monospace))
     (set-frame-font (format "%s-%s" monospace size) t t)
@@ -41,7 +47,7 @@
     (set-face-font 'variable-pitch sans-serif)))
 
 ;; Line height
-(if (is-mac) (setq-default line-spacing 0.4))
+(if (is-mac) (setq-default line-spacing 0.3))
 
 ;; Disables bell
 (setq ring-bell-function 'ignore)
@@ -55,6 +61,7 @@
 (column-number-mode)
 
 ;; Highlight parenthesis
+(eval-when-compile (defvar show-paren-delay))
 (setq show-paren-delay 0)
 (show-paren-mode 1)
 
@@ -72,16 +79,23 @@
 (setq frame-title-format nil ns-use-proxy-icon nil)
 
 ;; https://www.emacswiki.org/emacs/GlobalTextScaleMode
+(eval-when-compile
+  (defvar text-scale-mode)
+  (defvar text-scale-mode-amount))
+(declare-function text-scale-mode ())
+
 (define-globalized-minor-mode global-text-scale-mode
   text-scale-mode (lambda () (text-scale-mode 1)))
 
 (defun global-text-scale-adjust (inc)
+  "Adjust global text scale by INC."
   (text-scale-set 1)
   (kill-local-variable 'text-scale-mode-amount)
   (setq-default text-scale-mode-amount (+ text-scale-mode-amount inc))
   (global-text-scale-mode 1))
 
 (defun global-text-scale-reset ()
+  "Reset global text scale."
   (interactive)
   (global-text-scale-adjust (- text-scale-mode-amount))
   (global-text-scale-mode -1))
@@ -109,3 +123,6 @@
 (global-set-key (kbd "C-c l") 'windmove-right)
 (global-set-key (kbd "C-c k") 'windmove-up)
 (global-set-key (kbd "C-c j") 'windmove-down)
+
+(provide 'base)
+;;; base.el ends here
