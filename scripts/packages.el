@@ -73,6 +73,7 @@
 ;; https://github.com/emacs-evil/evil
 (use-package evil
   :hook
+  (conf-mode . evil-local-mode)
   (css-mode . evil-local-mode)
   (elixir-mode . evil-local-mode)
   (emacs-lisp-mode . evil-local-mode)
@@ -89,7 +90,8 @@
 
 ;; https://flycheck.readthedocs.io/en/latest/
 (use-package flycheck
-  :after (global-flycheck-mode))
+  :ensure t
+  :init (global-flycheck-mode))
 
 ;; https://magit.vc/manual/magit/
 (use-package magit

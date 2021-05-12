@@ -37,9 +37,9 @@
       mac-option-modifier 'none)
 
 ;; Fonts
-(let ((monospace "Courier Code")
-      (sans-serif "Verdana")
-      (size (if (is-mac) "18" "12")))
+(let ((monospace "Fira Code")
+      (sans-serif "Fira Sans")
+      (size "18"))
   (when (find-font (font-spec :name monospace))
     (set-frame-font (format "%s-%s" monospace size) t t)
     (set-face-font 'fixed-pitch-serif monospace))
