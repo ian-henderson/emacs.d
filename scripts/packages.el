@@ -70,17 +70,28 @@
         current-theme dark-theme)
   (load-theme current-theme t))
 
-;; https://github.com/emacs-evil/evil
+;; Https://github.com/emacs-evil/evil
+(eval-when-compile (defvar display-line-numbers-type))
+
+(defun evil-mode-config ()
+  "Configure settings for evil mode."
+  (when (version<= "26.0.50" emacs-version)
+    (display-line-numbers-mode)
+    (setq display-line-numbers-type 'relative)))
+
 (use-package evil
   :hook
+  (evil-local-mode . evil-mode-config)
   (conf-mode . evil-local-mode)
   (css-mode . evil-local-mode)
   (elixir-mode . evil-local-mode)
   (emacs-lisp-mode . evil-local-mode)
+  (fundamental-mode . evil-local-mode)
   (markdown-mode . evil-local-mode)
   (rust-mode . evil-local-mode)
   (shell-script-mode . evil-local-mode)
   (solidity-mode . evil-local-mode)
+  (text-mode . evil-local-mode)
   (web-mode . evil-local-mode))
 
 ;; https://github.com/purcell/exec-path-from-shell
@@ -89,9 +100,9 @@
   :if (memq window-system '(mac ns x)))
 
 ;; https://flycheck.readthedocs.io/en/latest/
-(use-package flycheck
-  :ensure t
-  :init (global-flycheck-mode))
+; (use-package flycheck
+;   :ensure t
+;   :init (global-flycheck-mode))
 
 ;; https://magit.vc/manual/magit/
 (use-package magit
@@ -120,7 +131,6 @@
 
 (defun web-mode-config ()
   "Web mode config."
-  (flycheck-mode)
   (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
