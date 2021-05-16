@@ -33,8 +33,8 @@
 (scroll-bar-mode 0)
 
 ;; Fonts
-(let ((monospace (if (is-mac) "Anonymous Pro" "JetBrains Mono"))
-      (sans-serif (if (is-mac) "Alegreya Sans" "Arial"))
+(let ((monospace (if (is-mac) "Input Mono Narrow" "InputMonoNarrow"))
+      (sans-serif (if (is-mac) "Input Mono Sans" "InputMonoSans"))
       (size "18"))
   (when (find-font (font-spec :name monospace))
     (set-frame-font (format "%s-%s" monospace size) t t)
