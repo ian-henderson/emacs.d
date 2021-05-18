@@ -34,7 +34,7 @@
 
 ;; Fonts
 (let ((monospace (if (is-mac) "Input Mono Narrow" "InputMonoNarrow"))
-      (sans-serif (if (is-mac) "Input Mono Sans" "InputMonoSans"))
+      (sans-serif (if (is-mac) "Input Sans Narrow" "InputSansNarrow"))
       (size "18"))
   (when (find-font (font-spec :name monospace))
     (set-frame-font (format "%s-%s" monospace size) t t)
@@ -43,7 +43,7 @@
     (set-face-font 'variable-pitch sans-serif)))
 
 ;; Line height
-(if (is-mac) (setq-default line-spacing 0.4))
+(setq-default line-spacing (if (is-mac) 0.4 0.2))
 
 ;; Disables bell
 (setq ring-bell-function 'ignore)
