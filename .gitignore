@@ -57,3 +57,8 @@ ac-comphist.dat
 projectile-bookmarks.eld
 
 eln-cache
+
+transient
+
+session.*
+url
