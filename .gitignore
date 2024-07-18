@@ -1,0 +1,16 @@
+*~
+*.elc
+.emacs.desktop
+.emacs.desktop.lock
+.last-package-update-day
+ac-comphist.dat
+bookmarks
+eln-cache
+elpa
+framesets.d
+projectile-bookmarks.eld
+recentf
+session.*
+tramp
+transient
+url
