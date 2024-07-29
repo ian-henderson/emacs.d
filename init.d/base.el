@@ -33,7 +33,6 @@
 
 ;; eww
 (setq-default eww-search-prefix "https://lite.duckduckgo.com/lite?q="
-              fill-column       80
               shr-use-colors    nil  ; eww uses fixed width fonts by default
               shr-use-fonts     nil  ; eww uses fixed width fonts by default
               shr-width         70)  ; eww max width
@@ -46,9 +45,6 @@
     (eww-mode)
     (eww url)))
 
-;; Disable tab character
-(setq-default indent-tabs-mode nil)
-
 ;; Copy, cut, and paste
 (global-set-key (kbd "C-c c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "C-c v") 'clipboard-yank)
@@ -58,4 +54,5 @@
 (global-set-key (kbd "C-c u") 'browse-url-at-point)
 
 (provide 'base)
+
 ;;; base.el ends here

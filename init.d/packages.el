@@ -50,7 +50,13 @@
   :config
   (dashboard-setup-startup-hook))
 
-;; evil
+;; exec-path-from-shell
+(use-package exec-path-from-shell
+  :config
+  (exec-path-from-shell-initialize)
+  (exec-path-from-shell-copy-envs '("LIBERA_USERNAME" "LIBERA_PASSWORD")))
+
+; evil
 ;; https://github.com/emacs-evil/evil
 (use-package evil
   :init
@@ -70,6 +76,10 @@
   evil
   :config
   (evil-collection-init))
+
+;; fish mode
+;; https://github.com/wwwjfy/emacs-fish
+(use-package fish-mode)
 
 ;; flycheck
 ;; https://www.flycheck.org/en/latest/user/installation.html
@@ -156,12 +166,6 @@
   :bind
   ("<f5>" . my-toggle-theme))
 
-;; nix-mode
-;; https://github.com/NixOS/nix-mode
-(use-package nix-mode
-  :config
-  (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode)))
-
 ;; org-bullets
 ;; https://github.com/sabof/org-bullets
 (use-package org-bullets
@@ -188,21 +192,24 @@
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode)))
 
-;; delight
-;; (deliberately placed at end)
+;; delight (deliberately placed at end of file)
 ;; https://www.emacswiki.org/emacs/DelightedModes
 (use-package delight
   :config
-  (delight '((auto-complete-mode nil "auto-complete")
+  (delight '((abbrev-mode nil "simple")
+	     (auto-complete-mode nil "auto-complete")
+	     (auto-revert-mode nil "simple")
              (beacon-mode nil "beacon")
              (eldoc-mode nil "eldoc")
              (evil-mode nil "evil")
              (evil-collection-unimpaired-mode nil "evil-collection")
              (flycheck-mode nil "flycheck")
+	     (font-lock-mode nil "simple")
              (format-all-mode nil "format-all")
              (hs-minor-mode nil "hideshow")
              (projectile-mode nil "projectile")
              (visual-line-mode nil "simple"))))
 
 (provide 'packages)
+
 ;;; packages.el ends here

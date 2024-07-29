@@ -72,16 +72,16 @@
 ;; tab-bar-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(tab-bar-mode 1)
+(tab-bar-mode nil)
 
 (setq tab-bar-auto-width        nil
       tab-bar-close-button-show nil
       tab-bar-format            '(tab-bar-format-history
                                   tab-bar-format-tabs
                                   tab-bar-separator)
-      tab-bar-new-tab-choice    "*dashboard*"
-      tab-bar-show              t)
+      tab-bar-new-tab-choice    "*dashboard*")
 
+(global-set-key (kbd "C-x t t") 'toggle-tab-bar-mode-from-frame)
 (global-set-key (kbd "C-x t n") 'tab-bar-new-tab)
 (global-set-key (kbd "C-x t o") 'tab-bar-switch-to-tab)
 (global-set-key (kbd "C-x t r") 'tab-bar-rename-tab)
@@ -90,4 +90,5 @@
 (global-set-key (kbd "C-<right>") 'tab-bar-move-tab)
 
 (provide 'windows)
+
 ;;; windows.el ends here

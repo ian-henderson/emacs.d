@@ -25,19 +25,27 @@
 (add-hook 'c-mode-hook 'c-mode-hook-gnu)
 
 ;; Hideshow minor mode
-;; key bindings:
-;; C-c @ C-h	hs-hide-block
-;; C-c @ C-M-h	hs-hide-all
-;; C-c @ C-s	hs-show-block
-;; C-c @ C-M-s	hs-show-all
-(defvar hs-minor-mode-whitelist
-  '(c-mode
-    emacs-lisp-mode
-    mhtml-mode nix-mode)
-  "List of modes where hw-minor-mode should be disabled.")
-(dolist (mode hs-minor-mode-whitelist)
-  (let ((hook (intern (concat (symbol-name mode) "-hook"))))
-    (add-hook hook (lambda () (hs-minor-mode)))))
+(add-hook 'prog-mode-hook #'hs-minor-mode)
+
+(defun toggle-hs-all ()
+  "Toggle all blocks with Hideshow minor mode."
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (if (hs-already-hidden-p)
+        (hs-show-all)
+      (hs-hide-all))))
+
+(global-set-key (kbd "C-c H") 'toggle-hs-all)
+
+(defun toggle-hs-block ()
+  "Toggle block with Hideshow minor mode."
+  (interactive)
+  (if (hs-already-hidden-p)
+      (hs-show-block)
+    (hs-hide-block)))
+
+(global-set-key (kbd "C-c h") 'toggle-hs-block)
 
 (provide 'language-settings)
 ;;; language-settings.el ends here
