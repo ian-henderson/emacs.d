@@ -13,7 +13,25 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(fish-mode exec-path-from-shell delight yaml-mode rainbow-delimiters projectile org-bullets moe-theme markdown-mode magit format-all flycheck evil-collection dashboard beacon auto-package-update auto-complete)))
+   '(auto-complete
+     auto-package-update
+     beacon
+     dashboard
+     evil
+     evil-collection
+     exec-path-from-shell
+     delight
+     fish-mode
+     flycheck
+     format-all
+     magit
+     markdown-mode
+     moe-theme
+     org-bullets
+     projectile
+     rainbow-delimiters
+     yaml-mode)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

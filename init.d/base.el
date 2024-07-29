@@ -31,6 +31,10 @@
               read-buffer-completion-ignore-case t
               read-file-name-completion-ignore-case t)
 
+;; org-mode setup hook
+(add-hook 'org-mode-hook
+	  (lambda () (local-set-key (kbd "C-c u") 'org-open-at-point)))
+
 ;; eww
 (setq-default eww-search-prefix "https://lite.duckduckgo.com/lite?q="
               shr-use-colors    nil  ; eww uses fixed width fonts by default
