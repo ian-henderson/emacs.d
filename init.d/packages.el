@@ -142,29 +142,7 @@
 
 ;; moe-theme
 ;; https://github.com/kuanyui/moe-theme.el
-(defvar dark-theme 'moe-dark)
-(defvar light-theme 'moe-light)
-(defvar current-theme dark-theme)
-
-(defun my-toggle-theme ()
-  "Toggle between light and dark themes."
-  (interactive)
-  (disable-theme current-theme)
-  (setq current-theme (if (eq current-theme dark-theme) light-theme dark-theme))
-  (load-theme current-theme t))
-
-(add-hook 'after-init-hook
-          (lambda ()
-            (load-theme current-theme t)))
-
-(add-hook 'after-make-frame-functions
-          (lambda (frame)
-            (with-selected-frame frame
-              (load-theme current-theme t))))
-
-(use-package moe-theme
-  :bind
-  ("<f5>" . my-toggle-theme))
+(use-package moe-theme)
 
 ;; org-bullets
 ;; https://github.com/sabof/org-bullets
@@ -204,6 +182,7 @@
              (evil-mode nil "evil")
              (evil-collection-unimpaired-mode nil "evil-collection")
              (flycheck-mode nil "flycheck")
+	     (flyspell-mode nil "simple")
 	     (font-lock-mode nil "simple")
              (format-all-mode nil "format-all")
              (hs-minor-mode nil "hideshow")

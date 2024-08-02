@@ -5,11 +5,12 @@
 (defvar default-font-height 150)
 (setq-default line-spacing 0.2)  ; line height
 
-(set-face-attribute 'default nil :family "Go Mono")
-(set-face-attribute 'default nil :height default-font-height)
+;; "GoMono Nerd Font"
+(set-face-attribute
+ 'default nil :family "Maple Mono" :height default-font-height)
 
-(set-face-attribute 'variable-pitch nil :family "Go")
-
+(set-face-attribute
+ 'variable-pitch nil :family "Open Sans")
 
 (defun increase-font-size ()
   "Increase font size."
