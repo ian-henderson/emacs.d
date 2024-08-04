@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-;; LIBERA_USERNAME and LIBERA_PASSWORD are set in ~/.zprofile
+;; LIBERA_USERNAME and LIBERA_PASSWORD are set in ~/.profile
 
 (setq-default
  rcirc-authinfo
@@ -27,4 +27,5 @@
 (global-set-key (kbd "C-c i") 'irc)
 
 (provide 'rcirc)
+
 ;;; rcirc.el ends here

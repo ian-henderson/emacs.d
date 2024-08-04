@@ -11,6 +11,17 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 
+(setq-default initial-buffer-choice
+	      (lambda () (get-buffer "*dashboard*")))
+
+;; desktop-save-mode
+(desktop-save-mode 1)
+(setq-default desktop-auto-save-timeout 1800
+              desktop-lazy-verbose nil
+              desktop-load-locked-desktop t
+              desktop-save t)
+
+
 ;; flyspell
 (require 'flyspell)
 (dolist (hook '(markdown-mode-hook org-mode-hook text-mode-hook))
@@ -38,7 +49,7 @@
 ;; eww
 (setq-default eww-search-prefix "https://lite.duckduckgo.com/lite?q="
               shr-use-colors    nil  ; eww uses fixed width fonts by default
-              shr-use-fonts     nil  ; eww uses fixed width fonts by default
+              ; shr-use-fonts     nil  ; eww uses fixed width fonts by default
               shr-width         70)  ; eww max width
 
 (defun eww-new-buffer ()

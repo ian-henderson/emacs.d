@@ -3,14 +3,14 @@
 ;;; Code:
 
 ;; fullscreen/maximize keybindings
-(defun my-fullscreen-on-new-frame (frame)
+(defun my-maximize-on-new-frame (frame)
   "Make the new FRAME fullscreen."
   (with-selected-frame frame
-    (toggle-frame-fullscreen)))
+    (toggle-frame-maximized)))
 
-;; fullscreen on start
-;; (add-hook 'after-make-frame-functions 'my-fullscreen-on-new-frame)
-;; (add-hook 'window-setup-hook 'toggle-frame-fullscreen t)
+;; maximize on start
+(add-hook 'after-make-frame-functions 'my-maximize-on-new-frame)
+(add-hook 'window-setup-hook 'toggle-frame-maximized t)
 
 (global-set-key (kbd "C-c f") 'toggle-frame-fullscreen)
 (global-set-key (kbd "C-c m") 'toggle-frame-maximized)

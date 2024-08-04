@@ -48,4 +48,5 @@
 (global-set-key (kbd "C-c h") 'toggle-hs-block)
 
 (provide 'language-settings)
+
 ;;; language-settings.el ends here

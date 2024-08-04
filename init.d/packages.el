@@ -22,7 +22,6 @@
 ;; Packages
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; auto-complete
 ;; https://github.com/auto-complete/auto-complete
 ;; https://auto-complete.github.io/doc/manual.html
 (use-package auto-complete
@@ -30,7 +29,6 @@
   (ac-config-default)
   (global-auto-complete-mode))
 
-;; auto-package-update
 ;; https://github.com/rranelli/auto-package-update.el
 (use-package auto-package-update
   :config
@@ -38,25 +36,30 @@
                 auto-package-update-hide-results t)
   (auto-package-update-maybe))
 
-;; beacon
 ;; https://github.com/Malabarba/beacon
 (use-package beacon
   :config
   (beacon-mode 1))
 
-;; dashboard
 ;; https://github.com/emacs-dashboard/emacs-dashboard
 (use-package dashboard
   :config
   (dashboard-setup-startup-hook))
 
-;; exec-path-from-shell
+;; https://github.com/doomemacs
+(use-package doom-themes
+  :config
+  (setq-default doom-themes-enable-bold nil
+		doom-themes-enable-italic nil))
+
+;; https://protesilaos.com/emacs/ef-themes
+(use-package ef-themes)
+
 (use-package exec-path-from-shell
   :config
   (exec-path-from-shell-initialize)
   (exec-path-from-shell-copy-envs '("LIBERA_USERNAME" "LIBERA_PASSWORD")))
 
-; evil
 ;; https://github.com/emacs-evil/evil
 (use-package evil
   :init
@@ -69,7 +72,6 @@
     (evil-mode (if (bound-and-true-p evil-mode) -1 1)))
   (global-set-key (kbd "C-c e") #'toggle-evil-mode))
 
-;; evil-collection
 ;; https://github.com/emacs-evil/evil-collection
 (use-package evil-collection
   :after
@@ -77,17 +79,14 @@
   :config
   (evil-collection-init))
 
-;; fish mode
 ;; https://github.com/wwwjfy/emacs-fish
 (use-package fish-mode)
 
-;; flycheck
 ;; https://www.flycheck.org/en/latest/user/installation.html
 (use-package flycheck
   :config
   (global-flycheck-mode 1))
 
-;; format-all
 ;; https://github.com/lassik/emacs-format-all-the-code
 ;; https://astyle.sourceforge.net/astyle.html
 (use-package format-all
@@ -127,12 +126,10 @@
 
 ;; lsp-mode TODO: set this up
 
-;; magit
 ;; https://github.com/magit/magit
 ;; https://magit.vc/manual
 (use-package magit)
 
-;; markdown-mode
 ;; https://github.com/jrblevin/markdown-mode
 (use-package markdown-mode
   :config
@@ -140,37 +137,45 @@
   (add-to-list 'auto-mode-alist '("\\.markdown\\'" . gfm-mode))
   (add-to-list 'auto-mode-alist '("\\.md\\'" . gfm-mode)))
 
-;; moe-theme
-;; https://github.com/kuanyui/moe-theme.el
+;; https://protesilaos.com/emacs/modus-themes
+(use-package modus-themes
+  :config
+  (setq modus-themes-common-palette-overrides
+	`(;; tab bar
+	  (bg-tab-bar bg-main)
+	  (bg-tab-current bg-active)
+	  (bg-tab-other bg-dim)
+	  ;; mode line
+	  (border-mode-line-active bg-mode-line-active)
+	  (border-mode-line-inactive bg-mode-line-inactive)
+	  ;; cursor
+	  (cursor blue-faint)
+	  ,@modus-themes-preset-overrides-faint)))
+
 (use-package moe-theme)
 
-;; org-bullets
 ;; https://github.com/sabof/org-bullets
 (use-package org-bullets
   :config
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-;; projectile
 ;; https://docs.projectile.mx/projectile/index.html
 (use-package projectile
   :config
   (projectile-mode 1)
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-commander))
 
-;; rainbow-delimiters
 ;; https://github.com/Fanael/rainbow-delimiters
 (use-package rainbow-delimiters
   :config
   (add-hook 'prog-mode-hook (lambda () (rainbow-delimiters-mode 1))))
 
-;; yaml-mode
 ;; https://github.com/yoshiki/yaml-mode
 (use-package yaml-mode
   :config
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
   (add-to-list 'auto-mode-alist '("\\.yaml\\'" . yaml-mode)))
 
-;; delight (deliberately placed at end of file)
 ;; https://www.emacswiki.org/emacs/DelightedModes
 (use-package delight
   :config
@@ -188,6 +193,34 @@
              (hs-minor-mode nil "hideshow")
              (projectile-mode nil "projectile")
              (visual-line-mode nil "simple"))))
+
+;; Themes
+(defvar dark-theme 'doom-nord-aurora)
+(defvar light-theme 'doom-nord-light)
+(defvar current-theme dark-theme)
+
+(defun my-toggle-theme ()
+  "Toggle between light and dark themes."
+  (interactive)
+  (disable-theme current-theme)
+  (setq current-theme
+	(if (eq current-theme dark-theme) light-theme dark-theme))
+  (load-theme current-theme t))
+
+(global-set-key (kbd "<f5>") 'my-toggle-theme)
+
+(defvar calendar-latitude  38.8339)
+(defvar calendar-longitude -104.8214)
+
+;; https://github.com/guidoschmidt/circadian.el
+(use-package circadian
+  :config
+  (setq circadian-themes `((:sunrise . ,light-theme)
+			   (:sunset  . ,dark-theme)))
+  (add-hook 'circadian-after-load-theme-hook
+	    (lambda (theme) (setq current-theme theme)))
+  (add-hook 'emacs-startup-hook #'circadian-setup)
+  (circadian-setup))
 
 (provide 'packages)
 
