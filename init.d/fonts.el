@@ -3,13 +3,13 @@
 ;;; Code:
 
 (defvar default-font-height 175)
-(setq-default line-spacing 0.15)  ; line height
+(setq-default line-spacing 0.1)
 
 (set-face-attribute
- 'default nil :family "GoMono Nerd Font" :height default-font-height)
+ 'default nil :family "Ubuntu Sans Mono" :height default-font-height)
 
 (set-face-attribute
- 'variable-pitch nil :family "Go" :height default-font-height)
+ 'variable-pitch nil :family "Ubuntu Sans" :height default-font-height)
 
 (defun increase-font-size ()
   "Increase font size."

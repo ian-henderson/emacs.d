@@ -48,9 +48,7 @@
 
 ;; eww
 (setq-default eww-search-prefix "https://lite.duckduckgo.com/lite?q="
-              shr-use-colors    nil  ; eww uses fixed width fonts by default
-              ; shr-use-fonts     nil  ; eww uses fixed width fonts by default
-              shr-width         70)  ; eww max width
+	      shr-width         70)
 
 (defun eww-new-buffer ()
   "Open a new eww buffer."

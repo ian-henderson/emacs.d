@@ -11,14 +11,13 @@
  `(("irc.libera.chat"
     :channels ("##politics"
                "#c"
-               ;; "#django"
+               "#cs"
                "#emacs"
-               ;; "#guile"
-               ;; "#javascript"
+               "#hacksoc"
                "#linux"
-               ;; "#lisp"
+               "#networking"
                "#nixos"
-               ;; "#python"
+               "#python"
                "#systemcrafters")
     :encryption tls
     :nick ,(getenv "LIBERA_USERNAME")

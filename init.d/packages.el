@@ -104,27 +104,40 @@
       ;; "--squeeze-lines=1"
       ;; "--squeeze-ws"
       "--unpad-paren"))
+
   (defvar astyle-c-options-gnu
     (append astyle-c-options
             '("--break-return-type"
               "--break-return-type-decl"
               "--indent=spaces=2"
               "--style=gnu")))
+
   (defvar astyle-c-options-linux
     (append astyle-c-options
             '("--attach-return-type"
               "--attach-return-type-decl"
               "--indent=force-tab=8"
               "--style=linux")))
+
   (setq-default
    format-all-formatters
    `(("C"    (astyle ,@(append astyle-c-options-gnu '("--mode=c"))))
      ("C++"  (astyle ,@(append astyle-c-options-gnu '("--mode=c++"))))
+     ("Go"   gofmt)
      ("HTML" html-tidy))
    format-all-show-errors 'errors)
+
   (add-hook 'prog-mode-hook 'format-all-mode))
 
+;; https://github.com/emacsorphanage/git-gutter
+(use-package git-gutter
+  :config
+  (global-git-gutter-mode 1))
+
 ;; lsp-mode TODO: set this up
+
+;; https://github.com/dominikh/go-mode.el
+(use-package go-mode)
 
 ;; https://github.com/magit/magit
 ;; https://magit.vc/manual
@@ -190,13 +203,14 @@
 	     (flyspell-mode nil "simple")
 	     (font-lock-mode nil "simple")
              (format-all-mode nil "format-all")
+	     (git-gutter-mode nil "git-gutter")
              (hs-minor-mode nil "hideshow")
              (projectile-mode nil "projectile")
              (visual-line-mode nil "simple"))))
 
 ;; Themes
-(defvar dark-theme 'doom-nord-aurora)
-(defvar light-theme 'doom-nord-light)
+(defvar dark-theme 'modus-vivendi-tinted)
+(defvar light-theme 'modus-operandi-tinted)
 (defvar current-theme dark-theme)
 
 (defun my-toggle-theme ()
