@@ -21,7 +21,6 @@
               desktop-load-locked-desktop t
               desktop-save t)
 
-
 ;; flyspell
 (require 'flyspell)
 (dolist (hook '(markdown-mode-hook org-mode-hook text-mode-hook))
@@ -42,21 +41,8 @@
               read-buffer-completion-ignore-case t
               read-file-name-completion-ignore-case t)
 
-;; org-mode setup hook
 (add-hook 'org-mode-hook
 	  (lambda () (local-set-key (kbd "C-c u") 'org-open-at-point)))
-
-;; eww
-(setq-default eww-search-prefix "https://lite.duckduckgo.com/lite?q="
-	      shr-width         70)
-
-(defun eww-new-buffer ()
-  "Open a new eww buffer."
-  (interactive)
-  (let ((url (read-from-minibuffer "Enter URL or keywords: ")))
-    (switch-to-buffer (generate-new-buffer "*eww*"))
-    (eww-mode)
-    (eww url)))
 
 ;; Copy, cut, and paste
 (global-set-key (kbd "C-c c") 'clipboard-kill-ring-save)

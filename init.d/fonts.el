@@ -2,20 +2,27 @@
 ;;; Commentary:
 ;;; Code:
 
-(defvar default-font-height 175)
-(setq-default line-spacing 0.1)
+(defvar default-font-height 150)
+(setq-default line-spacing 0.2)
+
+;; UbuntuSansMono Nerd Font
+(set-face-attribute
+ 'default nil :family "JetBrains Mono" :height default-font-height)
 
 (set-face-attribute
- 'default nil :family "Ubuntu Sans Mono" :height default-font-height)
+ 'fixed-pitch nil :family "JetBrains Mono" :height default-font-height)
 
 (set-face-attribute
- 'variable-pitch nil :family "Ubuntu Sans" :height default-font-height)
+ 'variable-pitch nil :family "Inter" :height default-font-height)
 
 (defun increase-font-size ()
   "Increase font size."
   (interactive)
   (set-face-attribute
    'default nil
+   :height (ceiling (* 1.1 (face-attribute 'default :height))))
+  (set-face-attribute
+   'fixed-pitch nil
    :height (ceiling (* 1.1 (face-attribute 'default :height))))
   (set-face-attribute
    'variable-pitch nil
@@ -28,6 +35,9 @@
    'default nil
    :height (ceiling (* 0.9 (face-attribute 'default :height))))
   (set-face-attribute
+   'fixed-pitch nil
+   :height (ceiling (* 0.9 (face-attribute 'default :height))))
+  (set-face-attribute
    'variable-pitch nil
    :height (ceiling (* 0.9 (face-attribute 'variable-pitch :height)))))
 
@@ -36,6 +46,8 @@
   (interactive)
   (set-face-attribute
    'default nil :height default-font-height)
+  (set-face-attribute
+   'fixed-pitch nil :height default-font-height)
   (set-face-attribute
    'variable-pitch nil :height default-font-height))
 
