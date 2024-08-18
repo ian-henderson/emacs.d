@@ -7,10 +7,10 @@
 
 ;; UbuntuSansMono Nerd Font
 (set-face-attribute
- 'default nil :family "JetBrains Mono" :height default-font-height)
+ 'default nil :family "Cascadia Code" :height default-font-height)
 
 (set-face-attribute
- 'fixed-pitch nil :family "JetBrains Mono" :height default-font-height)
+ 'fixed-pitch nil :family "Cascadia Code" :height default-font-height)
 
 (set-face-attribute
  'variable-pitch nil :family "Inter" :height default-font-height)

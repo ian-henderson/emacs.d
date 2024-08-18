@@ -14,6 +14,23 @@
 (setq-default initial-buffer-choice
 	      (lambda () (get-buffer "*dashboard*")))
 
+;; custom file
+(defvar my-custom-file
+  (expand-file-name "init.d/custom.el" user-emacs-directory))
+
+(setq custom-file my-custom-file)
+
+(unless (file-exists-p my-custom-file)
+  (with-temp-buffer
+    (insert ";;; Package --- custom.el\n")
+    (insert ";;; Commentary:\n")
+    (insert ";;; Code:\n\n")
+    (insert "(provide 'custom)\n\n")
+    (insert ";;; custom.el ends here\n")
+    (write-region (point-min) (point-max) my-custom-file)))
+
+(load my-custom-file)
+
 ;; desktop-save-mode
 (desktop-save-mode 1)
 (setq-default desktop-auto-save-timeout 1800
